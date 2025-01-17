@@ -1,4 +1,4 @@
-selecionar_formula = input("Informe a formula do triagulo A --> área, P --> perimetro: ").upper()
+selecionar_formula = input("Informe a formula a seguir:\nA --> área\nP --> perimetro\n-->: ").upper()
 
 if selecionar_formula == "A":
     base = float(input("Informe a base do triangulo: "))

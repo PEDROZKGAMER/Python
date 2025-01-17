@@ -1,4 +1,4 @@
-selecionar_formula = input("Informe a formula A --> área, P --> perímetro, BM --> Base média do trapézio: ").upper()
+selecionar_formula = input("Informe a formula a seguir:\nA --> área\nP --> perímetro\nBM --> Base média do trapézio\n-->: ").upper()
 
 if selecionar_formula == "A":
     base_maior = float(input("Informe a base maior do trapézio: "))

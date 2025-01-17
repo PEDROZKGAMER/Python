@@ -1,5 +1,5 @@
 import math
-selecionar_formula = input("Informe a formula a seguir, onde A --> área, P --> perímetro, D --> diagonal: ").upper()
+selecionar_formula = input("Informe a formula a seguir:\nA --> área\nP --> perímetro\nD --> diagonal\n-->: ").upper()
 
 if selecionar_formula == "A":
     base = float(input("Informe a base do paralelograma: "))

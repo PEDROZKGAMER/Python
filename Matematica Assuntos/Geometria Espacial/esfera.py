@@ -1,4 +1,4 @@
-selecionar_formula = input("Informe a formula a seguir, onde(A --> área, V --> volume): ").upper()
+selecionar_formula = input("Informe a formula a seguir:\nA --> área\nV --> volume\n-->: ").upper()
 
 if selecionar_formula == "A":
     raio = float(input("Informe o raio da esfera: "))

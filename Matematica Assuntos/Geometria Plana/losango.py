@@ -1,5 +1,5 @@
 import math
-selecionar_formula = input("Informe a formula A --> Area, P --> perimetro, D --> diagonal: ").upper()
+selecionar_formula = input("Informe a formula a seguir:\nA --> Area\nP --> perimetro\nD --> diagonal\n-->: ").upper()
 
 if selecionar_formula == "A":
     diagonal_maior = float(input("Informe o valor da diagonal maior: "))

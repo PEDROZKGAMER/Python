@@ -1,4 +1,4 @@
-selecionar_formula = input("Informe a formula a seguir, onde(Ab --> Área da base, Al --> Área lateral, At --> Área total e V --> volume): ").upper()
+selecionar_formula = input("Informe a formula a seguir:\nAb --> Área da base\nAl --> Área lateral\nAt --> Área total\nV --> volume)\n-->: ").upper()
 
 if selecionar_formula == "AB":
     raio = float(input("Informe o raio do cilindro: "))

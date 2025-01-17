@@ -1,20 +1,16 @@
-raio = float(input("Informe o raio do circulo: "))
-selecionar_formula = input("Informe qual formula você queira onde  A ou a -> área || P ou p -> perímetro || D ou d -> diametro ||: ").upper()
-pi = 3.14
+selecionar_formula = input("Informe a formula a seguir:\nA --> área\nP --> perímetro\nD --> diametro\n-->: ").upper()
 
-area = "A"
-perimetro = "P"
-diametro = "D"
-
-formula_area = pi * (raio * raio)
-formula_perimetro = 2 * pi * raio
-formula_diametro = 2 * raio
-
-if selecionar_formula == area:
+if selecionar_formula == "A":
+    raio = float(input("Informe o raio do circulo: "))
+    formula_area = 3.14 * (raio * raio)
     print(f"{formula_area}cm²")
-elif selecionar_formula == perimetro:
-    print(f"{formula_perimetro}")
-elif selecionar_formula == diametro:
+elif selecionar_formula == "P":
+    raio = float(input("Informe o raio do circulo: "))
+    formula_perimetro = 2 * 3.14 * raio
+    print(f"{round(formula_perimetro, 2)}")
+elif selecionar_formula == "D":
+    raio = float(input("Informe o raio do circulo: "))
+    formula_diametro = 2 * raio
     print(f"{formula_diametro}")
 else:
     print("Erro, formula inválida!")

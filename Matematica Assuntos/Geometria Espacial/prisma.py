@@ -1,5 +1,5 @@
 import math
-selecionar_formula = input("Informe a formula a seguir, onde(A --> área, AB --> área base, AT --> área total, V --> volume): ").upper()
+selecionar_formula = input("Informe a formula a seguir:\nA --> área\nAB --> área base\nAT --> área total\nV --> volume\n-->: ").upper()
 
 if selecionar_formula == "A":
     lado = float(input("Informe o lado do prisma: "))

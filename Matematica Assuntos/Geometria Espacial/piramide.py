@@ -1,4 +1,4 @@
-selecionar_formula = input("Informe a formula a seguir, onde(AL --> área lateral, AB --> área base, V --> volume): ").upper()
+selecionar_formula = input("Informe a formula a seguir:\nAL --> área lateral\nAB --> área base\nV --> volume\n-->: ").upper()
 
 if selecionar_formula == "AL":
     base = float(input("Informe a base da piramide: "))
@@ -11,7 +11,7 @@ elif selecionar_formula == "V":
     volume = (area_base * altura) / 3
     print(f"O volume da piramide é: {volume}")
 elif selecionar_formula == "AB":
-    selecionar_base = input("Informe a base a seguir, onde(BQ --> base quadrada, BR --> base retangular, BT --> base triangular): ").upper()
+    selecionar_base = input("Informe a base a seguir\nBQ --> base quadrada\nBR --> base retangular\nBT --> base triangular\n-->: ").upper()
     if selecionar_base == "BQ":
         lado = float(input("Informe o lado da base do quadrangular da piramide: "))
         base_quadrada = lado * lado

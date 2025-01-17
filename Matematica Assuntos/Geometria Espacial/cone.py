@@ -1,4 +1,4 @@
-selecionar_formula = input("Informe a formula a seguir, onde(AB --> área da base, AL --> area lateral, AT --> area total, V --> volume): ").upper()
+selecionar_formula = input("Informe a formula a seguir:\nAB --> área da base\nAL --> area lateral\nAT --> area total\nV --> volume\n-->: ").upper()
 
 if selecionar_formula == "AL":
     raio = float(input("Informe o raio do cone: "))
