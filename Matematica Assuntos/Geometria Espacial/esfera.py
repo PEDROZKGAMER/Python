@@ -3,7 +3,7 @@ selecionar_formula = input("Informe a formula a seguir:\nA --> área\nV --> volu
 if selecionar_formula == "A":
     raio = float(input("Informe o raio da esfera: "))
     area = 4 * (3.14 * (raio * raio))
-    print(f"A área da esfera é: {area}")
+    print(f"A área da esfera é: {round(area, 2)}")
 elif selecionar_formula == "V":
     raio = float(input("Informe o raio da esfera: "))
     volume = (4 / 3) * 3.14 * (raio ** 3)
