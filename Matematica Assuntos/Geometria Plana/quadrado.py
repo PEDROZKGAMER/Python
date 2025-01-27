@@ -1,17 +1,18 @@
 import math
 
-selecionar_formula = input("Informe a fórmula a seguir:\nA --> área\nP --> perímetro\nD --> diagonal\n-->: ").upper()
+selecionar_formula = input("Informe a fórmula a seguir:\nA ==> área\nP ==> perímetro\nD ==> diagonal\n==>: ").upper()
 
+#Formula Área
 if selecionar_formula == "A":
     lado = float(input("Informe o lado do quadrado: "))
     formula_area = lado * lado
     print(f"A área do quadrado é: {formula_area}")
-    
+#Formula do perímetro
 elif selecionar_formula == "P":
     lado = float(input("Informe o lado do quadrado: "))
     formula_perimetro = 4 * lado
     print(f"O perímetro do quadrado é: {formula_perimetro}")
-
+#Formula da diagonal
 elif selecionar_formula == "D":
     lado = float(input("Informe o lado do quadrado: "))
     # Função para fatorar números em primos

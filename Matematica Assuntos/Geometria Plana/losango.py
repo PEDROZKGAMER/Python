@@ -1,15 +1,18 @@
 import math
-selecionar_formula = input("Informe a formula a seguir:\nA --> Area\nP --> perimetro\nD --> diagonal\n-->: ").upper()
+selecionar_formula = input("Informe a formula a seguir:\nA ==> Area\nP ==> perimetro\nD ==> diagonal\n==>: ").upper()
 
+#Formula Área
 if selecionar_formula == "A":
     diagonal_maior = float(input("Informe o valor da diagonal maior: "))
     diagonal_menor = float(input("Informe o valor da diagonal menor: "))
     area = (diagonal_maior * diagonal_menor) / 2
-    print(f"A área do losango é: {area}")
+    print(f"A área do losango é: {round(area, 2)}")
+#Formula do perímetro
 elif selecionar_formula == "P":
     lado = float(input("Informe o lado do losango: "))
     perimetro = 4 * lado
     print(f"O perímetro do losango é: {perimetro}")
+#Formula da diagonal
 elif selecionar_formula == "D":
     diagonal_maior_D = float(input("Informe o valor da diagonal maior: "))
     diagonal_menor_d = float(input("Informe o valor da diagonal menor: "))
