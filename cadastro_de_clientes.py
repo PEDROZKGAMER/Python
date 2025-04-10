@@ -3,7 +3,7 @@ id_atual = 1
 clientes_removidos = []
 
 while True:
-    opcao = int(input("\nInforme a opção abaixo:\n1 ==> Cadastrar clientes\n2 ==> Quantidade de clientes\n3 ==> Remoção do cliente\n4 ==> Restaurar cliente\n5 ==> Sair do programa\n==> "))
+    opcao = int(input("\nInforme a opção abaixo:\n1 ==> Cadastrar clientes\n2 ==> Quantidade de clientes\n3 ==> Remoção do cliente\n4 ==> Restaurar cliente\n5 ==> Alterar dados do cliente\n6 ==> Sair do programa\n==> "))
 
     if(opcao == 1):
         while(True):
@@ -19,6 +19,13 @@ while True:
                 print("Erro, CPF inválido!")
                 continue
 
+            email = input("Informe o email do cliente: ")
+
+            if(email == ""):
+                print("Email inválido! Por favor, informar o email válido!")
+                continue
+
+
             while True:
                 confirmar = input("Deseja mesmo cadastrar esse cliente? (S/N): ").strip().upper()
                 if confirmar in ["S", "N"]:
@@ -28,7 +35,7 @@ while True:
             if confirmar == "N":
                 print("Cadastro cancelado.")
             else:
-                cliente = {"ID": id_atual, "Nome": nome, "CPF": cpf}
+                cliente = {"ID": id_atual, "Nome": nome, "CPF": cpf, "Email": email}
                 clientes.append(cliente)
                 print(f"Cliente {nome} cadastrado com sucesso com ID {id_atual}!")
                 id_atual += 1
@@ -40,69 +47,103 @@ while True:
                 break
     elif(opcao == 2):
         if(clientes == []):
-            print("Nenhum cliente cadastrado.")
+            print("Nenhum cliente cadastrado ainda!")
         else:
-            print("\n📋 Lista de Clientes:")
+            print("Lista de clientes cadastrados!")
             for cliente in clientes:
-                print(f"ID: {cliente['ID']} | Nome: {cliente['Nome']} | CPF: {cliente['CPF']}")
-            print(f"Quantidade total de clientes: {len(clientes)}")
+                print(f"ID: {cliente['ID']} | Nome: {cliente['Nome']} | CPF: {cliente['CPF']} | Email: {cliente['Email']}")
+            print(f"Quantidade de clientes: {len(clientes)}")
     elif(opcao == 3):
         if(clientes == []):
-            print("Nenhum cliente cadastrado.")
+            print("Nenhum cliente cadastrado ainda!")
         else:
-            print("\n📋 Lista de Clientes:")
-            for c in clientes:
-                print(f"ID: {c['ID']} | Nome: {c['Nome']} | CPF: {c['CPF']}")
-            print(f"Quantidade total de clientes: {len(clientes)}")
-
-            id_remover = int(input("Informe o ID do cliente que deseja remover: "))
-
+            print("Lista de clientes cadastrados!")
             for cliente in clientes:
-                if cliente["ID"] == id_remover:
-                    clientes.remove(cliente)
-                    clientes_removidos.append(cliente)
-                    print(f"✅ Cliente {cliente['Nome']} removido com sucesso!")
-                    break
-            else:
-                print("Erro, id inválido!")
-                continue
-    elif(opcao == 4):
-        if(clientes_removidos == []):
-            print("Nenhum cliente removido ainda...")
-            continue
+                print(f"ID: {cliente['ID']} Nome: {cliente['Nome']} | CPF: {cliente['CPF']} | Email: {cliente['Email']}")
+            print(f"Quantidade de clientes: {len(clientes)}")
+        
+        remover_produto = int(input("Informe o id do cliente para remove-lo: "))
+
+        for remover in clientes:
+            if(remover["ID"] == remover_produto):
+                clientes.remove(remover)
+                clientes_removidos.append(remover)
+                print(f"{remover["Nome"]} foi removido com sucesso!")
+                break
         else:
-            print("\n📋 Lista de Clientes removidos:")
-            for c in clientes_removidos:
-                print(f"ID: {c['ID']} | Nome: {c['Nome']} | CPF: {c['CPF']}")
-            print(f"Quantidade total de clientes removidos: {len(clientes_removidos)}")
+            print("ID inválido! por favor informar o id correto!")
+            continue
+    elif (opcao == 4):
+        if(clientes_removidos == []):
+            print("Nenhum cliente foi removido ainda!")
+        else:
+            print("Clientes removidos!")
+            for cliente_removo in clientes_removidos:
+                print(f"ID: {cliente_removo["ID"]} | Nome: {cliente_removo["Nome"]} | CPF: {cliente_removo["CPF"]} | Email: {cliente_removo["Email"]}")
+            print(f"Quantidade de clientes removidos: {len(clientes_removidos)}")
+        
+        restaura_cliente = int(input("Informe o ID do cliente a ser restaurar: "))
 
-        restaurar_cliente = int(input("Deseja restaurar algum cliente removido? (1 - Sim / 2 - Não): "))
+        for restaurar in clientes_removidos:
+            if(restaurar["ID"] == restaura_cliente):
+                clientes_removidos.remove(restaurar)
+                clientes.append(restaurar)
+            print(f"O Cliente {restaurar["Nome"]}, foi restaurado com sucesso!")
+            break
+        else:
+            print("Erro, id inválido!")
+            continue
+    elif(opcao == 5):
+        if(clientes == []):
+            print("Nenhum cliente cadastrado ainda!")
+        else:
+            print("Lista de clientes cadastrados!")
+            for cliente in clientes:
+                print(f"ID: {cliente['ID']} Nome: {cliente['Nome']} | CPF: {cliente['CPF']} | Email: {cliente['Email']}")
+            print(f"Quantidade de clientes: {len(clientes)}")
+        
+        confirmar_se = int(input("Deseja alterar algum dado do cliente? (1 == Sim/2 ==> Não) "))
 
-        if(restaurar_cliente == 1):
-            id_cliente = int(input("Informe o ID do cliente que deseja restaurar: "))
+        if(confirmar_se not in [1, 2]):
+            print("Opção inválida!")
+            continue
 
-            while True:
-                confirmar = input("Deseja mesmo restaurar esse cliente? (S/N): ").strip().upper()
-                if confirmar in ["S", "N"]:
-                    break
-                print("Opção inválida! Digite apenas S ou N.")
+        if(confirmar_se == "2"):
+            print("Voltando pro menu!")
+            break
+        else:
+            id_cliente = int(input("Informe o id do cliente para modificar algums dados: "))
 
-            if confirmar == "N":
-                print("Rastauração cancelado.")
-            else:
-                for cliente in clientes_removidos:
-                    if(cliente["ID"] == id_cliente):
-                        clientes.append(cliente)
-                        clientes_removidos.remove(cliente)
-                        print(f"Cliente {cliente['Nome']} restaurado com sucesso!\nVoltando pro menu!...")
-                        break
+            for alterar in clientes:
+                if(alterar["ID"] == id_cliente):
+                    opcao_alterado = int(input("Informe qual dado você deseja alterar:\n1 ==> Nome\n2 ==> CPF\n3 ==> Email\n==> "))
+
+                    if(opcao_alterado == 1):
+                        nome_antigo = cliente["Nome"]
+                        novo_nome = input("Informe o novo nome pro cliente: ").upper().strip()
+
+                        alterar["Nome"] = novo_nome
+
+                        print(f"O {nome_antigo} foi alterado para {alterar["Nome"]} com sucesso!")
+                    elif(opcao_alterado == 2):
+                        CPF_antigo = cliente["CPF"]
+                        cpf_novo = int(input("Em casos de erro de digitação, por favor, informar o cpf do cliente: "))
+
+                        alterar["CPF"] = cpf_novo
+
+                        print(f"O {CPF_antigo} foi modificado para {alterar["CPF"]}")
+                    elif(opcao_alterado == 3):
+                        email_antigo = cliente["Email"]
+                        novo_email = input("Informe o novo email do cliente: ")
+
+                        alterar["Email"] = novo_email
+
+                        print(f"O email {email_antigo} foi alterado para {alterar["Email"]}")
+                    else:
+                        print("Erro, opção inválida!")
                 else:
                     print("Erro, id inválido!")
-                    continue
-    elif(opcao == 5):
-        print("Saindo do programa...")
+    else:
+        print("Saindo do programa, até mais!")
         break
-            
-            
 
-            

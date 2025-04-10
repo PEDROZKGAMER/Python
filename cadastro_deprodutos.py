@@ -3,8 +3,8 @@ id_atuais = 1
 Produtos_removidos = []
 
 while(True):
-    print("\nBem-vindo ao sistema de cadastro de produtos!")
-    opcao = int(input("Informe a opção abaixo: \n1 - Cadastrar produto\n2 - Listar produtos\n3 - Remover produto\n4 - Listar produtos removidos\n5 - Sair\n==> "))
+    print("\n#==== Bem-vindo ao sistema de cadastro de produtos! ====#")
+    opcao = int(input("Informe a opção abaixo: \n1 ==> Cadastrar produto\n2 ==> Listar produtos\n3 ==> Alterar produto\n4 ==> Remover produto\n5 ==> Listar produtos removidos\n6 ==> Sair\n==> "))
 
     if(opcao == 1):
         while True:
@@ -61,6 +61,54 @@ while(True):
             for produto in Produtos:
                 print(f"ID do produto: {produto['ID']} | Nome do produto: {produto['Nome']} | Preço do produto: {produto['Preço']} | Quantidade: {produto['Quantidade']}")
             print(f"Quantidade de produtos: {len(Produtos)}")
+        
+        alterar_produto_id = int(input("Informe o id do produto para altera-lo: "))
+
+        for alteracao in Produtos:
+            if(alteracao['ID'] == alterar_produto_id):
+                print("Produto encontrado. Deixe em branco se não quiser alterar algum campo.")
+                alterar_produto = int(input("Informe alguma opção pra alterar algum dado do produto:\n1 ==> Alterar nome\n2 ==> Alterar o preço\n3 ==> Alterar a quantidade\n==> "))
+
+                if(alterar_produto == 1):
+                    novo_nome = input("Informe o nome do produto: ").upper().strip()
+
+                    alteracao['Nome'] = novo_nome
+
+                    confirmacao = input("Deseja mesmo alterar esse dado? (S/N)").upper()
+
+                    if(confirmacao == "N"):
+                        break
+                elif(alterar_produto == 2):
+                    novo_preco = float(input("Informe o preço do produto: "))
+
+                    alteracao['Preço'] = novo_preco
+
+                    confirmacao = input("Deseja mesmo alterar esse dado? (S/N)").upper()
+
+                    if(confirmacao == "N"):
+                        break
+                elif(alterar_produto == 3):
+                    nova_quantidade = int(input("Informe a nova quantidade desse produto: "))
+
+                    alteracao['Quantidade'] = nova_quantidade
+
+                    confirmacao = input("Deseja mesmo alterar esse dado? (S/N)").upper()
+
+                    if(confirmacao == "N"):
+                        break
+                else:
+                    print("Erro, esta opção não existe. Por favor inserir a opção correta!")
+                    continue
+            else:
+                print("Id do produto não encontrado!")
+    elif(opcao == 4):
+        if Produtos == []:
+            print("\nErro, nenhum produto cadastrado ainda!")
+        else:
+            print("\nLista dos produtos cadastrados!")
+            for produto in Produtos:
+                print(f"ID do produto: {produto['ID']} | Nome do produto: {produto['Nome']} | Preço do produto: {produto['Preço']} | Quantidade: {produto['Quantidade']}")
+            print(f"Quantidade de produtos: {len(Produtos)}")
 
             id_do_produto = int(input("Informe o id do produto a ser removido: "))
 
@@ -72,7 +120,7 @@ while(True):
                     break
             else:
                 print("Erro, id de produto inválido!")
-    elif(opcao == 4):
+    elif(opcao == 5):
         if Produtos_removidos == []:
             print("\nErro, nenhum produto removido ainda!")
         else:
@@ -91,7 +139,7 @@ while(True):
                     break
             else:
                 print("Erro, ID do produto inválido!")
-    elif(opcao == 5):
+    elif(opcao == 6):
         print("\nPrograma encerrando, até mais!")
         break
     else:
