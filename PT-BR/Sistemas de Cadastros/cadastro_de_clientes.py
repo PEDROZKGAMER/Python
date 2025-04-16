@@ -6,7 +6,8 @@ while True:
     opcao = int(input("\nInforme a opção abaixo:\n1 ==> Cadastrar clientes\n2 ==> Quantidade de clientes\n3 ==> Remoção do cliente\n4 ==> Restaurar cliente\n5 ==> Alterar dados do cliente\n6 ==> Sair do programa\n==> "))
 
     if(opcao == 1):
-        while(True):
+        continuar_cadastro = True
+        while(continuar_cadastro):
             nome = input("Informe o nome do cliente: ").strip().upper()
 
             if(nome == ""):
@@ -40,11 +41,18 @@ while True:
                 print(f"Cliente {nome} cadastrado com sucesso com ID {id_atual}!")
                 id_atual += 1
             
-            sair = input("Deseja cadastrar outro cliente? (S/N): ").strip().upper()
+            while(True):
+                sair = input("Deseja cadastrar outro cliente? (S/N): ").strip().upper()
+                if(sair in ["S", "N"]):
+                    if(sair == "N"):
+                        print("Voltando ao menu principal...")
+                        continuar_cadastro = False
+                        break
+                    elif(sair == "S"):
+                        break
+                else:
+                    print("Erro, opção inválida! Digite apenas S ou N.")
 
-            if(sair == "N"):
-                print("Voltando ao menu principal...")
-                break
     elif(opcao == 2):
         if(clientes == []):
             print("Nenhum cliente cadastrado ainda!")
@@ -54,33 +62,49 @@ while True:
                 print(f"ID: {cliente['ID']} | Nome: {cliente['Nome']} | CPF: {cliente['CPF']} | Email: {cliente['Email']}")
             print(f"Quantidade de clientes: {len(clientes)}")
     elif(opcao == 3):
-        if(clientes == []):
-            print("Nenhum cliente cadastrado ainda!")
-        else:
-            print("Lista de clientes cadastrados!")
-            for cliente in clientes:
-                print(f"ID: {cliente['ID']} Nome: {cliente['Nome']} | CPF: {cliente['CPF']} | Email: {cliente['Email']}")
-            print(f"Quantidade de clientes: {len(clientes)}")
+        continuar_remocao = True
+        while(continuar_remocao):
+            if(clientes == []):
+                print("Nenhum cliente cadastrado ainda!")
+            else:
+                print("Lista de clientes cadastrados!")
+                for cliente in clientes:
+                    print(f"ID: {cliente['ID']} Nome: {cliente['Nome']} | CPF: {cliente['CPF']} | Email: {cliente['Email']}")
+                print(f"Quantidade de clientes: {len(clientes)}")
         
-        remover_produto = int(input("Informe o id do cliente para remove-lo: "))
+            remover_produto = int(input("Informe o id do cliente para remove-lo: "))
 
-        for remover in clientes:
-            if(remover["ID"] == remover_produto):
-                clientes.remove(remover)
-                clientes_removidos.append(remover)
-                print(f"{remover["Nome"]} foi removido com sucesso!")
-                break
-        else:
-            print("ID inválido! por favor informar o id correto!")
-            continue
+            for remover in clientes:
+                if(remover["ID"] == remover_produto):
+                    clientes.remove(remover)
+                    clientes_removidos.append(remover)
+                    print(f"{remover['Nome']} foi removido com sucesso!")
+                    break
+            else:
+                print("ID inválido! por favor informar o id correto!")
+                continue
+
+            while(True):
+                sair = input("Deseja remover outro cliente? (S/N): ").upper()
+                if(sair in ["S", "N"]):
+                    if(sair == "N"):
+                        print("Voltando pro menu anterior!")
+                        continuar_remocao = False
+                        break
+                    elif(sair == "S"):
+                        break
+                else:
+                    print("Opção inválida! Por favor informar a opção correta!")
     elif (opcao == 4):
-        if(clientes_removidos == []):
-            print("Nenhum cliente foi removido ainda!")
-        else:
-            print("Clientes removidos!")
-            for cliente_removo in clientes_removidos:
-                print(f"ID: {cliente_removo["ID"]} | Nome: {cliente_removo["Nome"]} | CPF: {cliente_removo["CPF"]} | Email: {cliente_removo["Email"]}")
-            print(f"Quantidade de clientes removidos: {len(clientes_removidos)}")
+        continuar_restaurar = True
+        while(continuar_restaurar):
+            if(clientes_removidos == []):
+                print("Nenhum cliente foi removido ainda!")
+            else:
+                print("Clientes removidos!")
+                for cliente_removo in clientes_removidos:
+                    print(f"ID: {cliente_removo["ID"]} | Nome: {cliente_removo["Nome"]} | CPF: {cliente_removo["CPF"]} | Email: {cliente_removo["Email"]}")
+                print(f"Quantidade de clientes removidos: {len(clientes_removidos)}")
         
         restaura_cliente = int(input("Informe o ID do cliente a ser restaurar: "))
 
@@ -93,6 +117,19 @@ while True:
         else:
             print("Erro, id inválido!")
             continue
+
+        while(True):
+            sair = input("Deseja restaurar outro cliente? (S/N): ").upper()
+
+            if(sair in ["S", "N"]):
+                if(sair == "N"):
+                    print("Voltando pro menu anterior!")
+                    continuar_restaurar = False
+                    break
+                elif(sair == "S"):
+                    break
+                else:
+                    print("Opção inválida, só pode S ou N!")
     elif(opcao == 5):
         if(clientes == []):
             print("Nenhum cliente cadastrado ainda!")

@@ -41,10 +41,17 @@ while(True):
                 print(f"O produto {cadastrar_produto} foi cadastrado com sucesso!")
                 id_atuais += 1
 
-            sair = input("\nDeseja cadastrar outro produto?: (S/N) ").upper().strip()
-            if sair == "N":
-                print("Voltando pro menu...")
-                break
+                while(True):
+                    sair = input("\nDeseja cadastrar outro produto?: (S/N) ").upper().strip()
+
+                    if sair == "N":
+                        print("Voltando pro menu...")
+                        break
+                    elif(sair == "S"):
+                        continue
+                    else:
+                        print("Opção inválida!")
+                
     elif(opcao == 2):
         if Produtos == []:
             print("\nErro, nenhum produto cadastrado ainda!")
