@@ -1,186 +1,189 @@
-clientes = []
+Clientes = []
 id_atual = 1
-clientes_removidos = []
+Clientes_removidos = []
 
-while True:
-    opcao = int(input("\nInforme a opção abaixo:\n1 ==> Cadastrar clientes\n2 ==> Quantidade de clientes\n3 ==> Remoção do cliente\n4 ==> Restaurar cliente\n5 ==> Alterar dados do cliente\n6 ==> Sair do programa\n==> "))
+while(True):
+    try:
+        opcao = int(input("\nQual opção você deseja?\n1 ==> Cadastrar cliente\n2 ==> Listar Clientes\n3 ==> Alterar Dados\n4 ==> Remover cliente\n5 ==> Restaurar cliente\n6 ==> Sair do programa\n==> "))
+    except(ValueError):
+        print("\nA opção tem que ser em numero!")
+        continue
 
     if(opcao == 1):
-        continuar_cadastro = True
-        while(continuar_cadastro):
-            nome = input("Informe o nome do cliente: ").strip().upper()
+        continuar_cadastrar = True
+        while(continuar_cadastrar):
+            Nome = input("Informe o nome do cliente: ").upper().strip()
 
-            if(nome == ""):
-                print("Erro, por favor informe o nome do cliente!")
+            if(Nome == ""):
+                print("O nome não foi informado! Por favor, digite o nome corretamente.")
                 continue
 
-            cpf = int(input("Informe o CPF do cliente (somente números): "))
-
-            if(cpf < 0 and cpf != ""):
-                print("Erro, CPF inválido!")
-                continue
-
-            email = input("Informe o email do cliente: ")
-
-            if(email == ""):
-                print("Email inválido! Por favor, informar o email válido!")
-                continue
-
-
-            while True:
-                confirmar = input("Deseja mesmo cadastrar esse cliente? (S/N): ").strip().upper()
-                if confirmar in ["S", "N"]:
-                    break
-                print("Opção inválida! Digite apenas S ou N.")
-
-            if confirmar == "N":
-                print("Cadastro cancelado.")
-            else:
-                cliente = {"ID": id_atual, "Nome": nome, "CPF": cpf, "Email": email}
-                clientes.append(cliente)
-                print(f"Cliente {nome} cadastrado com sucesso com ID {id_atual}!")
-                id_atual += 1
-            
-            while(True):
-                sair = input("Deseja cadastrar outro cliente? (S/N): ").strip().upper()
-                if(sair in ["S", "N"]):
-                    if(sair == "N"):
-                        print("Voltando ao menu principal...")
-                        continuar_cadastro = False
-                        break
-                    elif(sair == "S"):
-                        break
-                else:
-                    print("Erro, opção inválida! Digite apenas S ou N.")
-
-    elif(opcao == 2):
-        if(clientes == []):
-            print("Nenhum cliente cadastrado ainda!")
-        else:
-            print("Lista de clientes cadastrados!")
-            for cliente in clientes:
-                print(f"ID: {cliente['ID']} | Nome: {cliente['Nome']} | CPF: {cliente['CPF']} | Email: {cliente['Email']}")
-            print(f"Quantidade de clientes: {len(clientes)}")
-    elif(opcao == 3):
-        continuar_remocao = True
-        while(continuar_remocao):
-            if(clientes == []):
-                print("Nenhum cliente cadastrado ainda!")
-            else:
-                print("Lista de clientes cadastrados!")
-                for cliente in clientes:
-                    print(f"ID: {cliente['ID']} Nome: {cliente['Nome']} | CPF: {cliente['CPF']} | Email: {cliente['Email']}")
-                print(f"Quantidade de clientes: {len(clientes)}")
-        
-            remover_produto = int(input("Informe o id do cliente para remove-lo: "))
-
-            for remover in clientes:
-                if(remover["ID"] == remover_produto):
-                    clientes.remove(remover)
-                    clientes_removidos.append(remover)
-                    print(f"{remover['Nome']} foi removido com sucesso!")
-                    break
-            else:
-                print("ID inválido! por favor informar o id correto!")
+            if(not all(verificar.isalpha() or verificar.isspace() for verificar in Nome)):
+                print("O nome deve conter só letras!")
                 continue
 
             while(True):
-                sair = input("Deseja remover outro cliente? (S/N): ").upper()
-                if(sair in ["S", "N"]):
-                    if(sair == "N"):
-                        print("Voltando pro menu anterior!")
-                        continuar_remocao = False
-                        break
-                    elif(sair == "S"):
-                        break
-                else:
-                    print("Opção inválida! Por favor informar a opção correta!")
-    elif (opcao == 4):
-        continuar_restaurar = True
-        while(continuar_restaurar):
-            if(clientes_removidos == []):
-                print("Nenhum cliente foi removido ainda!")
-            else:
-                print("Clientes removidos!")
-                for cliente_removo in clientes_removidos:
-                    print(f"ID: {cliente_removo["ID"]} | Nome: {cliente_removo["Nome"]} | CPF: {cliente_removo["CPF"]} | Email: {cliente_removo["Email"]}")
-                print(f"Quantidade de clientes removidos: {len(clientes_removidos)}")
-        
-        restaura_cliente = int(input("Informe o ID do cliente a ser restaurar: "))
+                try:
+                    CPF_Cliente = int(input("Informe o CPF do cliente (somente números): "))
 
-        for restaurar in clientes_removidos:
-            if(restaurar["ID"] == restaura_cliente):
-                clientes_removidos.remove(restaurar)
-                clientes.append(restaurar)
-            print(f"O Cliente {restaurar["Nome"]}, foi restaurado com sucesso!")
-            break
-        else:
-            print("Erro, id inválido!")
-            continue
+                    if(CPF_Cliente < 0):
+                        print("O CPF não pode ser número negativo!")
+                        continue
+                    cpf_ja_cadastrado = any(cliente["CPF"] == CPF_Cliente for cliente in Clientes)
 
-        while(True):
-            sair = input("Deseja restaurar outro cliente? (S/N): ").upper()
-
-            if(sair in ["S", "N"]):
-                if(sair == "N"):
-                    print("Voltando pro menu anterior!")
-                    continuar_restaurar = False
-                    break
-                elif(sair == "S"):
-                    break
-                else:
-                    print("Opção inválida, só pode S ou N!")
-    elif(opcao == 5):
-        if(clientes == []):
-            print("Nenhum cliente cadastrado ainda!")
-        else:
-            print("Lista de clientes cadastrados!")
-            for cliente in clientes:
-                print(f"ID: {cliente['ID']} Nome: {cliente['Nome']} | CPF: {cliente['CPF']} | Email: {cliente['Email']}")
-            print(f"Quantidade de clientes: {len(clientes)}")
-        
-        confirmar_se = int(input("Deseja alterar algum dado do cliente? (1 == Sim/2 ==> Não) "))
-
-        if(confirmar_se not in [1, 2]):
-            print("Opção inválida!")
-            continue
-
-        if(confirmar_se == "2"):
-            print("Voltando pro menu!")
-            break
-        else:
-            id_cliente = int(input("Informe o id do cliente para modificar algums dados: "))
-
-            for alterar in clientes:
-                if(alterar["ID"] == id_cliente):
-                    opcao_alterado = int(input("Informe qual dado você deseja alterar:\n1 ==> Nome\n2 ==> CPF\n3 ==> Email\n==> "))
-
-                    if(opcao_alterado == 1):
-                        nome_antigo = cliente["Nome"]
-                        novo_nome = input("Informe o novo nome pro cliente: ").upper().strip()
-
-                        alterar["Nome"] = novo_nome
-
-                        print(f"O {nome_antigo} foi alterado para {alterar["Nome"]} com sucesso!")
-                    elif(opcao_alterado == 2):
-                        CPF_antigo = cliente["CPF"]
-                        cpf_novo = int(input("Em casos de erro de digitação, por favor, informar o cpf do cliente: "))
-
-                        alterar["CPF"] = cpf_novo
-
-                        print(f"O {CPF_antigo} foi modificado para {alterar["CPF"]}")
-                    elif(opcao_alterado == 3):
-                        email_antigo = cliente["Email"]
-                        novo_email = input("Informe o novo email do cliente: ")
-
-                        alterar["Email"] = novo_email
-
-                        print(f"O email {email_antigo} foi alterado para {alterar["Email"]}")
+                    if(cpf_ja_cadastrado):
+                        print("Este CPF já foi cadastrado!")
+                        continue
                     else:
-                        print("Erro, opção inválida!")
-                else:
-                    print("Erro, id inválido!")
-    else:
-        print("Saindo do programa, até mais!")
-        break
+                        print("CPF válido.")
+                        break
+                except(ValueError):
+                    print("O CPF tem que ser em número!")
+                    continue
+            while(True):
+                Email = input("Informe o Email do cliente: ").strip()
 
+                if(Email == ""):
+                    print("O Email não foi informado! Por favor, digite um Email válido.")
+                    continue
+                email_ja_cadastrado = any(cliente["Email"].lower() == Email.lower() for cliente in Clientes)
+
+                if(email_ja_cadastrado):
+                    print("Este Email já foi registrado!")
+                    continue
+                else:
+                    print("Email válido.")
+                    break
+            while(True):
+                confirmar = input("Deseja cadastrar esse cliente? (S/N): ").upper()
+
+                if(confirmar == "S"):
+                    Cliente = {"ID": id_atual, "Nome": Nome, "CPF": CPF_Cliente, "Email": Email}
+                    Clientes.append(Cliente)
+                    id_atual += 1
+                    print("Usuário registrado com sucesso!")
+                    break
+                elif(confirmar == "N"):
+                    print("Cadastro cancelado.")
+                    break
+                else:
+                    print("Opção inválida! Por favor, informe S ou N.")
+                    continue
+            while(True):
+                Cadastra_outro = input("Deseja cadastrar outro cliente? (S/N): ").upper()
+
+                if(Cadastra_outro == "S"):
+                    break
+                elif(Cadastra_outro == "N"):
+                    print("Voltando para o menu anterior...")
+                    continuar_cadastrar = False
+                    break
+                else:
+                    print("Opção inválida! Por favor, informe S ou N.")
+    elif(opcao == 2):
+        if(Clientes == []):
+            print("Ainda não foi cadastrados nenhum cliente!")
+        else:
+            print("Lista de Clientes Cadastrados!")
+            for cliente in Clientes:
+                print(f"ID: {cliente['ID']} | Nome: {cliente['Nome']} | CPF: {cliente['CPF']} | Email: {cliente['Email']}")
+    elif opcao == 3:
+        continuar_Alteracao = True
+        while continuar_Alteracao:
+            if not Clientes:
+                print("Ainda não foi cadastrado nenhum cliente!")
+                break
+
+            print("Lista de Clientes Cadastrados:")
+            for cliente in Clientes:
+                print(f"ID: {cliente['ID']} | Nome: {cliente['Nome']} | CPF: {cliente['CPF']} | Email: {cliente['Email']}")
+
+            try:
+                ID_alterar = int(input("Informe o ID do cliente para modificar: "))
+                if ID_alterar < 0:
+                    print("O ID informado não pode ser negativo!")
+                    continue
+            except ValueError:
+                print("O ID deve ser um número!")
+                continue
+
+            cliente_encontrado = False
+
+            for people in Clientes:
+                if people['ID'] == ID_alterar:
+                    cliente_encontrado = True
+                    print(f"ID encontrado! Nome do cliente selecionado: {people['Nome']}")
+                
+                    try:
+                        opcao_modificar = int(input("Informe a opção abaixo para modificar os dados:\n1 ==> Alterar nome\n2 ==> Alterar CPF\n3 ==> Alterar Email\n==> "))
+                        if opcao_modificar < 0:
+                            print("A opção não pode ser negativa!")
+                            continue
+                    except ValueError:
+                        print("A opção deve ser um número!")
+                        continue
+                    if opcao_modificar == 1:
+                        nome_antigo = people['Nome']
+                        nome_novo = input("Informe o novo nome: ").strip().upper()
+
+                        if nome_novo == "":
+                            print("Nome inválido! Não pode estar vazio.")
+                            continue
+                        if not all(c.isalpha() or c.isspace() for c in nome_novo):
+                            print("Nome inválido! Use apenas letras e espaços.")
+                            continue
+
+                        confirmar = input("Deseja alterar esse dado? (S/N): ").upper()
+                        if confirmar == "S":
+                            people['Nome'] = nome_novo
+                            print(f"O nome '{nome_antigo}' foi alterado para '{people['Nome']}'!")
+                        else:
+                            print("Alteração cancelada.")
+                    elif opcao_modificar == 2:
+                        CPF_antigo = people['CPF']
+                        try:
+                            novo_CPF = int(input("Informe o novo CPF: "))
+                            if novo_CPF < 0:
+                                print("CPF não pode ser negativo!")
+                                continue
+                        except ValueError:
+                            print("CPF deve conter apenas números!")
+                            continue
+                        if any(c["CPF"] == novo_CPF and c["ID"] != people["ID"] for c in Clientes):
+                            print("Este CPF já está em uso por outro cliente!")
+                            continue
+
+                        confirmar = input("Deseja alterar esse dado? (S/N): ").upper()
+                        
+                        if confirmar == "S":
+                            people['CPF'] = novo_CPF
+                            print(f"✅ O CPF '{CPF_antigo}' foi alterado para '{people['CPF']}'!")
+                        else:
+                            print("Alteração cancelada.")
+                    elif opcao_modificar == 3:
+                        Email_antigo = people['Email']
+                        Email_novo = input("Informe o novo Email: ").strip()
+
+                        if Email_novo == "":
+                            print("Email inválido! Não pode estar vazio.")
+                            continue
+
+                        if any(c["Email"].lower() == Email_novo.lower() and c["ID"] != people["ID"] for c in Clientes):
+                            print("Este Email já está em uso por outro cliente!")
+                            continue
+
+                        confirmar = input("Deseja alterar esse dado? (S/N): ").upper()
+                        if confirmar == "S":
+                            people['Email'] = Email_novo
+                            print(f"✅ O Email '{Email_antigo}' foi alterado para '{people['Email']}'!")
+                        else:
+                            print("Alteração cancelada.")
+                    else:
+                        print("Opção inválida!")
+                        break
+
+            if not cliente_encontrado:
+                print("ID não encontrado no banco de dados.")
+
+
+                
