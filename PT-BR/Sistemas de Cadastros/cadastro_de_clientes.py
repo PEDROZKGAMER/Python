@@ -4,6 +4,9 @@ id_atual = 1
 Clientes_removidos = []
 
 while(True):
+    print("Carregando o programa...")
+    time.sleep(5)
+
     try:
         opcao = int(input("\nQual opção você deseja?\n1 ==> Cadastrar cliente\n2 ==> Listar Clientes\n3 ==> Alterar Dados\n4 ==> Remover cliente\n5 ==> Restaurar cliente\n6 ==> Sair do programa\n==> "))
     except(ValueError):
@@ -93,6 +96,9 @@ while(True):
                 else:
                     print("Opção inválida! Por favor, informe S ou N.")
     elif(opcao == 2):
+        print("Carregando a liste de clientes...")
+        time.sleep(8)
+        
         if(Clientes == []):
             print("Ainda não foi cadastrados nenhum cliente!")
         else:
@@ -102,6 +108,9 @@ while(True):
     elif(opcao == 3):
         continuar_Alteracao = True
         while continuar_Alteracao:
+            print("Carregando a liste de clientes...")
+            time.sleep(8)
+
             if(not Clientes):
                 print("Ainda não foi cadastrado nenhum cliente!")
                 break
@@ -223,6 +232,9 @@ while(True):
     elif(opcao == 4):
         continuar_Remocao = True
         while(True):
+            print("Verificando se existe clientes cadastrados...")
+            time.sleep(8)
+
             if(not Clientes):
                 print("Ainda não foi cadastrado nenhum cliente!")
                 break
@@ -248,6 +260,8 @@ while(True):
                         confirmar = input("Deseja mesmo remover esse cliente? (S/N): ").upper()
 
                         if(confirmar == "S"):
+                            print("Removendo o cliente...")
+                            time.sleep(8)
                             print(f"O cliente {people['Nome']} foi removido com sucesso!")
                             Clientes.remove(people)
                             Clientes_removidos.append(people)
@@ -273,11 +287,14 @@ while(True):
     elif(opcao == 5):
         continuar_restaurar = True
         while(continuar_restaurar):
+            print("Verificando se existe clientes removidos...")
+            time.sleep(8)
+
             if(not Clientes_removidos):
-                print("Ainda não foi cadastrado nenhum cliente!")
+                print("Ainda não foi removido nenhum cliente!")
                 break
 
-            print("Lista de Clientes Cadastrados:")
+            print("Lista de Clientes removidos:")
             for cliente in Clientes_removidos:
                 print(f"ID: {cliente['ID']} | Nome: {cliente['Nome']} | CPF: {cliente['CPF']} | Email: {cliente['Email']}")
             
@@ -299,6 +316,8 @@ while(True):
                         confirmar = input("Deseja restaurar esse cliente? (S/N): ").upper()
 
                         if(confirmar == "S"):
+                            print("Restaurando o cliente...")
+                            time.sleep(8)
                             print(f"O Cliente {people['Nome']} foi restaurado com sucesso!")
                             Clientes_removidos.remove(people)
                             Clientes.append(people)
@@ -324,6 +343,7 @@ while(True):
                             continue
     elif(opcao == 6):
         print("Encerrando o programa, Até mais!")
+        time.sleep(6)
         break
     else:
         print("Opção inválida, por favor informar a opção correta!")
