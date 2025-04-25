@@ -4,6 +4,8 @@ id_atual = 1
 Clientes_removidos = []
 
 while(True):
+    print("Iniciando o Sistema...")
+    time.sleep(8)
     try:
         opcao = int(input("\nQual opção você deseja?\n1 ==> Cadastrar cliente\n2 ==> Listar Clientes\n3 ==> Alterar Dados\n4 ==> Remover cliente\n5 ==> Restaurar cliente\n6 ==> Sair do programa\n==> "))
     except(ValueError):
@@ -93,6 +95,9 @@ while(True):
                 else:
                     print("Opção inválida! Por favor, informe S ou N.")
     elif(opcao == 2):
+        print("Carregando a lista de clientes...")
+        time.sleep(8)
+        
         if(Clientes == []):
             print("Ainda não foi cadastrados nenhum cliente!")
         else:
@@ -223,6 +228,9 @@ while(True):
     elif(opcao == 4):
         continuar_Remocao = True
         while(True):
+            print("Carregando a lista de clientes...")
+            time.sleep(8)
+
             if(not Clientes):
                 print("Ainda não foi cadastrado nenhum cliente!")
                 break
@@ -273,6 +281,9 @@ while(True):
     elif(opcao == 5):
         continuar_restaurar = True
         while(continuar_restaurar):
+            print("Carregando a lista de clientes removidos...")
+            time.sleep(8)
+
             if(not Clientes_removidos):
                 print("Ainda não foi cadastrado nenhum cliente!")
                 break
@@ -324,6 +335,7 @@ while(True):
                             continue
     elif(opcao == 6):
         print("Encerrando o programa, Até mais!")
+        time.sleep(5)
         break
     else:
         print("Opção inválida, por favor informar a opção correta!")
