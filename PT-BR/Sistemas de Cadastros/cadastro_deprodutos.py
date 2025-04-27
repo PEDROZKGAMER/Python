@@ -1,153 +1,253 @@
+import time
 Produtos = []
-id_atuais = 1
 Produtos_removidos = []
+id_atual = 1
+
+#print("Inicializando o sistema...")
+#time.sleep(6)
 
 while(True):
-    print("\n#==== Bem-vindo ao sistema de cadastro de produtos! ====#")
-    opcao = int(input("Informe a opção abaixo: \n1 ==> Cadastrar produto\n2 ==> Listar produtos\n3 ==> Alterar produto\n4 ==> Remover produto\n5 ==> Listar produtos removidos\n6 ==> Sair\n==> "))
+    try:
+        opcao = int(input("\nBem Vindo ao sitema de produtos!\nSelecione uma das opções abaixo:\n1 ==> Cadastro de produtos\n2 ==> Listar produtos\n3 ==> Alterar produtos\n4 ==> Remover produtos\n5 ==> Restaurar produto\n6 ==> Encerrar o programa\n==> "))
+
+        if(opcao < 0):
+            print("Opção negativo ou inválido! Por favor inserir a opção correta!")
+            continue
+    except(ValueError):
+        print("A opção tem ser em número, por favor inserir uma opção correta!")
+        continue
 
     if(opcao == 1):
-        while True:
-            cadastrar_produto = input("\nInforme o nome do produto: ").upper().strip()
+        continar_cadastrar = True
+        while(continar_cadastrar):
+            fornecedor = input("Informe o nome do fornecedor: ").upper()
 
-            if cadastrar_produto == "":
-                print("Por favor, preencher o nome do produto!")
+            if(fornecedor == ""):
+                print("O nome do fornecedor não digitado ou inválido!")
                 continue
 
-            preco = float(input(f"Informe o preço do {cadastrar_produto}: "))
-
-            if preco < 0:
-                print("Preço do produto inválido! Por favor informar o preço correto!")
+            if(not all(verificacao.isalpha() or verificacao.isspace() for verificacao in fornecedor)):
+                print("O nome do fornecedor deve conter só letras!")
                 continue
 
-            quantidade = int(input(f"Informe a quantidade de {cadastrar_produto} que possui: "))
+            while(True):
+                nome_produto = input("Informe o nome do produto: ").upper()
 
-            if quantidade < 0:
-                print("Erro, quantidade inválida, por favor informar a quantidade correta!")
-                continue
-
-            while True:
-                confirmar = input("\nVocê deseja cadastrar esse produto?: (S/N) ").upper().strip()
-
-                if confirmar in ["S", "N"]:
-                    break
-                print("Erro, opção inválida! Por favor informar a opção válida!")
-
-            if confirmar == "N":
-                print(f"Produto {cadastrar_produto} não cadastrado!")
-            else:
-                produto = {"ID": id_atuais, "Nome": cadastrar_produto, "Preço": preco, "Quantidade": quantidade}
-                Produtos.append(produto)
-                print(f"O produto {cadastrar_produto} foi cadastrado com sucesso!")
-                id_atuais += 1
-
-                while(True):
-                    sair = input("\nDeseja cadastrar outro produto?: (S/N) ").upper().strip()
-
-                    if sair == "N":
-                        print("Voltando pro menu...")
-                        break
-                    elif(sair == "S"):
-                        continue
-                    else:
-                        print("Opção inválida!")
-                
-    elif(opcao == 2):
-        if Produtos == []:
-            print("\nErro, nenhum produto cadastrado ainda!")
-        else:
-            print("\nLista dos produtos cadastrados!")
-            for produto in Produtos:
-                print(f"ID do produto: {produto['ID']} | Nome do produto: {produto['Nome']} | Preço do produto: {produto['Preço']} | Quantidade: {produto['Quantidade']}")
-            print(f"Quantidade de produtos: {len(Produtos)}")
-    elif(opcao == 3):
-        if Produtos == []:
-            print("\nErro, nenhum produto cadastrado ainda!")
-        else:
-            print("\nLista dos produtos cadastrados!")
-            for produto in Produtos:
-                print(f"ID do produto: {produto['ID']} | Nome do produto: {produto['Nome']} | Preço do produto: {produto['Preço']} | Quantidade: {produto['Quantidade']}")
-            print(f"Quantidade de produtos: {len(Produtos)}")
-        
-        alterar_produto_id = int(input("Informe o id do produto para altera-lo: "))
-
-        for alteracao in Produtos:
-            if(alteracao['ID'] == alterar_produto_id):
-                print("Produto encontrado. Deixe em branco se não quiser alterar algum campo.")
-                alterar_produto = int(input("Informe alguma opção pra alterar algum dado do produto:\n1 ==> Alterar nome\n2 ==> Alterar o preço\n3 ==> Alterar a quantidade\n==> "))
-
-                if(alterar_produto == 1):
-                    novo_nome = input("Informe o nome do produto: ").upper().strip()
-
-                    alteracao['Nome'] = novo_nome
-
-                    confirmacao = input("Deseja mesmo alterar esse dado? (S/N)").upper()
-
-                    if(confirmacao == "N"):
-                        break
-                elif(alterar_produto == 2):
-                    novo_preco = float(input("Informe o preço do produto: "))
-
-                    alteracao['Preço'] = novo_preco
-
-                    confirmacao = input("Deseja mesmo alterar esse dado? (S/N)").upper()
-
-                    if(confirmacao == "N"):
-                        break
-                elif(alterar_produto == 3):
-                    nova_quantidade = int(input("Informe a nova quantidade desse produto: "))
-
-                    alteracao['Quantidade'] = nova_quantidade
-
-                    confirmacao = input("Deseja mesmo alterar esse dado? (S/N)").upper()
-
-                    if(confirmacao == "N"):
-                        break
-                else:
-                    print("Erro, esta opção não existe. Por favor inserir a opção correta!")
+                if(nome_produto == ""):
+                    print("O produto não foi digitado ou inválido!")
                     continue
-            else:
-                print("Id do produto não encontrado!")
-    elif(opcao == 4):
-        if Produtos == []:
-            print("\nErro, nenhum produto cadastrado ainda!")
+
+                if(not all(verificar.isalpha() or verificar.isspace() for verificar in nome_produto)):
+                    print("O nome deve conter só letras, por favor inserir o nome do produto correto!")
+                    continue
+                break
+            while(True):
+                deseja_descricao = input("Deseja adicionar a descrição do produto? (S/N): ").upper()
+
+                if(deseja_descricao == "S"):
+                    descricao = input("Informe a descrição do produto: ")
+
+                    if(descricao == ""):
+                        print("A descrição não digitado ou inválido!")
+                        continue
+                    break
+                elif(deseja_descricao == "N"):
+                    descricao = "Nenhuma descrição adicionada!"
+                    break
+                else:
+                    print("Opção inválida, por favor informar a opção correta!")
+                    continue
+
+            try:
+                preco = float(input("Informe o preço do produto: "))
+
+                if(preco < 0):
+                    print("O preço do produto não pode ser negativo!")
+                    continue
+            except(ValueError):
+                print("O preço deve ser em números!")
+                continue
+
+            try:
+                quantidade = int(input("Informe a quantidade desse produto: "))
+
+                if(quantidade < 0):
+                    print("A quantidade não pode ser negativo ou inválido!")
+                    continue
+            except(ValueError):
+                print("A quantidade tem que ser em número!")
+                continue
+
+            codigo_produto = input("Informe o código do produto: ").upper()
+
+            if(codigo_produto == ""):
+                print("O código do produto não digitado ou inválido!")
+                continue
+
+            categoria = input("Informe a categoria desse produto: ").upper()
+
+            if(categoria == ""):
+                print("A categoria do produto não digitado ou inválido!")
+                continue
+
+            if(not all(verificar_categoria.isalpha() or verificar_categoria.isspace() for verificar_categoria in categoria)):
+                print("A categoria deve conter só letras!")
+                continue
+            
+            while(True):
+                confirmar = input("Deseja cadastrar esse produto? (S/N): ").upper()
+
+                if(confirmar == ""):
+                    print("A opção incorreta, por favor inserir a opção correta!")
+                    continue
+
+                if(confirmar == "S"):
+                    produto = {"ID": id_atual,"Fornecedor": fornecedor,"Nome": nome_produto,"Descrição": descricao,"Categoria": categoria, "Preço": preco, "Quantidade": quantidade, "Codigo do produto": codigo_produto}
+                    Produtos.append(produto)
+                    id_atual += 1
+                    print(f"O produto '{nome_produto}' foi cadastrado com sucesso!")
+                    break
+                elif(confirmar == "N"):
+                    break
+                else:
+                    print("Opção incorreta, por favor informar a opção correta!")
+                    continue
+                
+            while(True):
+                sair = input("Deseja cadastrar outro produto? (S/N): ").upper()
+
+                if(sair == ""):
+                    print("A opção incorreta, por favor inserir a opção correta!")
+                    continue
+
+                if(sair == "S"):
+                    break
+                elif(sair == "N"):
+                    print("Voltando pro menu anterior!")
+                    continar_cadastrar = False
+                    break
+                else:
+                    print("Opção inválida, por favor inserir a opção correta!")
+                    continue
+    elif(opcao == 2):
+        #print("Carregando a lista...")
+        #time.sleep(6)
+
+        if(Produtos == []):
+            print("Nenhum produto cadastrado ainda!")
         else:
-            print("\nLista dos produtos cadastrados!")
+            print("==== Lista de Produtos! ====")
+            numero_produto = 1
             for produto in Produtos:
-                print(f"ID do produto: {produto['ID']} | Nome do produto: {produto['Nome']} | Preço do produto: {produto['Preço']} | Quantidade: {produto['Quantidade']}")
-            print(f"Quantidade de produtos: {len(Produtos)}")
+                print(f"\nProduto #{numero_produto}\nID: {produto['ID']} | Fornecedor: {produto['Fornecedor']} | Nome do produto: {produto['Nome']} | Descrição: {produto['Descrição']}\nCategoria: {produto['Categoria']} | Preço do produto: {produto['Preço']} | Quantidade: {produto['Quantidade']} | Código do produto: {produto['Codigo do produto']}")
+                numero_produto += 1
+    elif(opcao == 3):
+        #print("Carregando a lista...")
+        #time.sleep(6)
 
-            id_do_produto = int(input("Informe o id do produto a ser removido: "))
-
-            for pr0duto in Produtos:
-                if pr0duto['ID'] == id_do_produto:
-                    Produtos.remove(pr0duto)
-                    Produtos_removidos.append(pr0duto)
-                    print(f"\nO produto {pr0duto['Nome']} foi removido com sucesso!")
-                    break
+        continuar_alterar = True
+        while(continuar_alterar):
+            if(Produtos == []):
+                print("Nenhum produto cadastrado ainda!")
             else:
-                print("Erro, id de produto inválido!")
-    elif(opcao == 5):
-        if Produtos_removidos == []:
-            print("\nErro, nenhum produto removido ainda!")
-        else:
-            print("\nLista dos produtos removidos!")
-            for produto in Produtos_removidos:
-                print(f"ID do produto: {produto['ID']} | Nome do produto: {produto['Nome']} | Preço do produto: {produto['Preço']} | Quantidade: {produto['Quantidade']}")
-            print(f"Quantidade de produtos: {len(Produtos_removidos)}")
+                print("==== Lista de Produtos! ====")
+                numero_produto = 1
+                for produto in Produtos:
+                    print(f"\nProduto #{numero_produto}\nID: {produto['ID']} | Fornecedor: {produto['Fornecedor']} | Nome do produto: {produto['Nome']} | Descrição: {produto['Descrição']}\nCategoria: {produto['Categoria']} | Preço do produto: {produto['Preço']} | Quantidade: {produto['Quantidade']} | Código do produto: {produto['Codigo do produto']}")
+                    numero_produto += 1
+            
+            try:
+                ID_produto = int(input("Informe o ID do produto para altera-lo: "))
 
-            id_do_produto_removido = int(input("Informe o id do produto removido para restaurar: "))
+                if(ID_produto < 0):
+                    print("O ID do produto negativo ou inválido!")
+                    continue
+            except(ValueError):
+                print("O ID do produto tem que ser em número!")
+            
+            for product in Produtos:
+                if(product['ID'] == ID_produto):
+                    print("Produto encontrado!")
+                
+                try:
+                    alterar_dado = int(input("Informe a opção para altera-lo:\n1 ==> Alterar o nome do fornecedor\n2 ==> Alterar o nome do produto\n3 ==> Alterar a descrição do produto\n4 ==> Alterar a quantidade\n5 ==> Alterar a categoria\n6 ==> alterar o preço\n7 ==> alterar o código do produto\n==> "))
 
-            for pr0duto in Produtos_removidos:
-                if pr0duto['ID'] == id_do_produto_removido:
-                    Produtos_removidos.remove(pr0duto)
-                    Produtos.append(pr0duto)
-                    print(f"\nO produto {pr0duto['Nome']} foi restaurado com sucesso!\nVoltando pro menu anterior")
-                    break
-            else:
-                print("Erro, ID do produto inválido!")
-    elif(opcao == 6):
-        print("\nPrograma encerrando, até mais!")
-        break
-    else:
-        print("\nOpção inválida! Tente novamente.")
+                    if(alterar_dado < 0):
+                        print("A opção negativo ou inválido!")
+                        continue
+                except(ValueError):
+                    print("A opção deve ser em número!")
+                    continue
+
+                if(alterar_dado == 1):
+                    fornecedor_antigo = product['Fornecedor']
+                    novo_fornecedor = input("Informe o novo nome do fornecedor: ")
+
+                    if(novo_fornecedor == ""):
+                        print("O fornecedor não digitado ou inválido!")
+                        continue
+
+                    while(True):
+                        confirmar_alteracao = input("Deseja mesmo fazer essa alteração? (S/N): ").upper()
+
+                        if(confirmar_alteracao == ""):
+                            print("A opção não informada ou inválida!")
+                            continue
+
+                        if(confirmar_alteracao == "S"):
+                            product['Fornecedor'] = novo_fornecedor
+                            print(f"O nome do fornecedor {fornecedor_antigo} foi alterado para {product['Fornecedor']}!")
+                            break
+                        elif(confirmar_alteracao == "N"):
+                            break
+                        else:
+                            print("Opção inválida!")
+                            continue
+                elif(alterar_dado == 2):
+                    produto_antigo = product['Nome']
+                    novo_produto = input("Informe o novo nome do produto: ")
+
+                    if(novo_produto == ""):
+                        print("O produto não digitado ou inválido!")
+                        continue
+
+                    while(True):
+                        confirmar_alteracao = input("Deseja mesmo fazer essa alteração? (S/N): ").upper()
+
+                        if(confirmar_alteracao == ""):
+                            print("A opção não informada ou inválida!")
+                            continue
+
+                        if(confirmar_alteracao == "S"):
+                            product['Nome'] = novo_produto
+                            print(f"O nome do produto {produto_antigo} foi alterado para {product['Nome']}!")
+                            break
+                        elif(confirmar_alteracao == "N"):
+                            break
+                        else:
+                            print("Opção inválida!")
+                            continue
+                elif(alterar_dado == 3):
+                    descricao_antiga = product['Descrição']
+                    nova_descricao = input("Informe a nova descrição do produto: ")
+
+                    if(nova_descricao == ""):
+                        print("A descrição do produto não digitado ou inválido!")
+                        continue
+
+                    while(True):
+                        confirmar_alteracao = input("Deseja mesmo fazer essa alteração? (S/N): ").upper()
+
+                        if(confirmar_alteracao == ""):
+                            print("A opção não informada ou inválida!")
+                            continue
+
+                        if(confirmar_alteracao == "S"):
+                            product['Descrição'] = nova_descricao
+                            print(f"A descrição {descricao_antiga} foi alterado para {product['Descrição']}!")
+                            break
+                        elif(confirmar_alteracao == "N"):
+                            break
+                        else:
+                            print("Opção inválida!")
+                            continue

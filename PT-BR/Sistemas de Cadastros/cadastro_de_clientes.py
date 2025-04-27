@@ -3,9 +3,10 @@ Clientes = []
 id_atual = 1
 Clientes_removidos = []
 
+print("Iniciando o Sistema...")
+time.sleep(8)
+
 while(True):
-    print("Iniciando o Sistema...")
-    time.sleep(8)
     try:
         opcao = int(input("\nQual opção você deseja?\n1 ==> Cadastrar cliente\n2 ==> Listar Clientes\n3 ==> Alterar Dados\n4 ==> Remover cliente\n5 ==> Restaurar cliente\n6 ==> Sair do programa\n==> "))
     except(ValueError):
