@@ -3,8 +3,8 @@ Produtos = []
 Produtos_removidos = []
 id_atual = 1
 
-#print("Inicializando o sistema...")
-#time.sleep(6)
+print("Inicializando o sistema...")
+time.sleep(4)
 
 while(True):
     try:
@@ -20,7 +20,7 @@ while(True):
     if(opcao == 1):
         continar_cadastrar = True
         while(continar_cadastrar):
-            fornecedor = input("Informe o nome do fornecedor: ").upper()
+            fornecedor = input("Informe o nome do fornecedor: ")
 
             if(fornecedor == ""):
                 print("O nome do fornecedor não digitado ou inválido!")
@@ -31,7 +31,7 @@ while(True):
                 continue
 
             while(True):
-                nome_produto = input("Informe o nome do produto: ").upper()
+                nome_produto = input("Informe o nome do produto: ")
 
                 if(nome_produto == ""):
                     print("O produto não foi digitado ou inválido!")
@@ -84,16 +84,19 @@ while(True):
                 print("O código do produto não digitado ou inválido!")
                 continue
             while(True):
-                categoria = input("Informe a categoria desse produto: ").upper()
+                Categorias = {1: "Alimentos", 2: "Eletrônicos", 3: "Vestuário", 4: "Casa e Decoração", 5: "Esportes e Lazer", 6: "Beleza", 7: "Bebidas"}
+                try:
+                    opcao_categoria = int(input("Informe uma das categorias abaixo:\n1 ==> Alimentos\n2 ==> Eletrônicos\n3 ==> Vestuário\n4 ==> Casa e Decoração\n5 ==> Esportes e Lazer\n6 ==> Beleza\n7 ==> Bebidas\n==> "))
 
-                if(categoria == ""):
-                    print("A categoria do produto não digitado ou inválido!")
-                    continue
+                    categoria = Categorias.get(opcao_categoria)
 
-                if(not all(verificar_categoria.isalpha() or verificar_categoria.isspace() for verificar_categoria in categoria)):
-                    print("A categoria deve conter só letras!")
+                    if(categoria):
+                        break
+                    else:
+                        print("Categoria inválida!")
+                except(ValueError):
+                    print("A opção de categoria deve ser em número!")
                     continue
-                break
             
             while(True):
                 confirmar = input("Deseja cadastrar esse produto? (S/N): ").upper()
@@ -109,6 +112,7 @@ while(True):
                     print(f"O produto '{nome_produto}' foi cadastrado com sucesso!")
                     break
                 elif(confirmar == "N"):
+                    print("O produto não foi cadastrado!")
                     break
                 else:
                     print("Opção incorreta, por favor informar a opção correta!")
@@ -131,8 +135,8 @@ while(True):
                     print("Opção inválida, por favor inserir a opção correta!")
                     continue
     elif(opcao == 2):
-        #print("Carregando a lista...")
-        #time.sleep(6)
+        print("Carregando a lista dos produtos cadastrados...")
+        time.sleep(3)
 
         if(Produtos == []):
             print("Nenhum produto cadastrado ainda!")
@@ -143,8 +147,8 @@ while(True):
                 print(f"\nProduto #{numero_produto}\nID: {produto['ID']} | Fornecedor: {produto['Fornecedor']} | Nome do produto: {produto['Nome']} | Descrição: {produto['Descrição']}\nCategoria: {produto['Categoria']} | Preço do produto: {produto['Preço']} | Quantidade: {produto['Quantidade']} | Código do produto: {produto['Codigo do produto']}")
                 numero_produto += 1
     elif(opcao == 3):
-        #print("Carregando a lista...")
-        #time.sleep(6)
+        print("Carregando a lista dos produtos cadastrados...")
+        time.sleep(3)
 
         continuar_alterar = True
         while(continuar_alterar):
@@ -213,6 +217,7 @@ while(True):
                         print(f"O nome do fornecedor {fornecedor_antigo} foi alterado para {product['Fornecedor']}!")
                         break
                     elif(confirmar_alteracao == "N"):
+                        print("Alteração cancelada!")
                         break
                     else:
                         print("Opção inválida!")
@@ -241,6 +246,7 @@ while(True):
                         print(f"O nome do produto {produto_antigo} foi alterado para {product['Nome']}!")
                         break
                     elif(confirmar_alteracao == "N"):
+                        print("Alteração cancelada!")
                         break
                     else:
                         print("Opção inválida!")
@@ -265,6 +271,7 @@ while(True):
                         print(f"A descrição {descricao_antiga} foi alterado para {product['Descrição']}!")
                         break
                     elif(confirmar_alteracao == "N"):
+                        print("Alteração cancelada!")
                         break
                     else:
                         print("Opção inválida!")
@@ -293,20 +300,21 @@ while(True):
                         print(f"A quantidade '{quantidade_antiga}' foi alterado para '{product['Quantidade']}'!")
                         break
                     elif(confirmar_alteracao == "N"):
+                        print("Alteração cancelada!")
                         break
                     else:
                         print("Opção inválida!")
                         continue
             elif(alterar_dado == 5):
+                Categorias = {1: "Alimentos", 2: "Eletrônicos", 3: "Vestuário", 4: "Casa e Decoração", 5: "Esportes e Lazer", 6: "Beleza", 7: "Bebidas"}
                 categoria_antiga = product['Categoria']
-                nova_categoria = input("Informe a categoria do produto: ")
+                
+                try:
+                    nova_categoria = int(input("Informe uma nova categoria abaixo:\n1 ==> Alimentos\n2 ==> Eletrônicos\n3 ==> Vestuário\n4 ==> Casa e Decoração\n5 ==> Esportes e Lazer\n6 ==> Beleza\n7 ==> Bebidas\n==> "))
 
-                if(nova_categoria == ""):
-                    print("A categoria não digitada ou inválida!")
-                    continue
-
-                if(not all(verificacao.isalpha() or verificacao.isspace() for verificacao in nova_categoria)):
-                    print("O nome do fornecedor deve conter só letras!")
+                    nova_categoria = Categorias.get(opcao_categoria)
+                except(ValueError):
+                    print("A opção deve ser em número!")
                     continue
 
                 while(True):
@@ -321,6 +329,7 @@ while(True):
                         print(f"A categoria do produto {categoria_antiga} foi alterado para {product['Categoria']}")
                         break
                     elif(confirmar_alteracao == "N"):
+                        print("Alteração cancelada!")
                         break
                     else:
                         print("Opção inválida!")
@@ -350,6 +359,7 @@ while(True):
                         print(f"O preço do produto '{preco_antigo}' foi alterado para {product['Preço']}!")
                         break
                     elif(confirmar_alteracao == "N"):
+                        print("Alteração cancelada!")
                         break
                     else:
                         print("A opção inválida!")
@@ -374,6 +384,7 @@ while(True):
                         print(f"O código do produto foi alterado de '{codigo_antigo}' para '{product['Codigo do produto']}'!")
                         break
                     elif(confirmar_alteracao == "N"):
+                        print("Alteração cancelada!")
                         break
                     else:
                         print("Opção inválida!")
@@ -397,6 +408,9 @@ while(True):
                     continue
 
     elif(opcao == 4):
+        print("Carregando a lista dos produtos cadastrados...")
+        time.sleep(3)
+
         continuar_removendo = True
         while(continuar_removendo):
             if(Produtos == []):
@@ -436,6 +450,7 @@ while(True):
                             print(f"O produto {product['Nome']} foi removido com sucesso!")
                             break
                         elif(confirmar == "N"):
+                            print("Remoção cancelada!")
                             break
                         else:
                             print("Opção inválida, por favor inserir uma opção correta!")
@@ -458,6 +473,9 @@ while(True):
                             print("Opção inválida, por favor informar uma opção correta!")
                             continue
     elif(opcao == 5):
+        print("Carregando a lista dos produtos removidos...")
+        time.sleep(3)
+
         continuar_restaurando = True
         while(continuar_restaurando):
             if(Produtos_removidos == []):
@@ -497,6 +515,7 @@ while(True):
                             print(f"O produto {product['Nome']} foi restaurado com sucesso!")
                             break
                         elif(confirmar == "N"):
+                            print("Restauração cancelada!")
                             break
                         else:
                             print("Opção inválida, por favor inserir uma opção correta!")
