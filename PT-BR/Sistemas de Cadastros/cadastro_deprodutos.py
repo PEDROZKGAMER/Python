@@ -180,9 +180,9 @@ while(True):
                 continue
                 
             try:
-                alterar_dado = int(input("Informe a opção para altera-lo:\n1 ==> Alterar o nome do fornecedor\n2 ==> Alterar o nome do produto\n3 ==> Alterar a descrição do produto\n4 ==> Alterar a quantidade\n5 ==> Alterar a categoria\n6 ==> alterar o preço\n7 ==> alterar o código do produto\n==> "))
+                alterar_dado = int(input("Informe a opção para altera-lo:\n1 ==> Alterar o nome do fornecedor\n2 ==> Alterar o nome do produto\n3 ==> Alterar a descrição do produto\n4 ==> Alterar a quantidade\n5 ==> Alterar a categoria\n6 ==> alterar o preço\n7 ==> alterar o código do produto\n8 ==> Cancelar alteração\n==> "))
 
-                if(alterar_dado < 1 or alterar_dado > 7):
+                if(alterar_dado < 1 or alterar_dado > 8):
                     print("Opção inválida!")
                     continue
             except(ValueError):
@@ -378,6 +378,11 @@ while(True):
                     else:
                         print("Opção inválida!")
                         continue
+            elif(alterar_dado == 8):
+                print("Alteração cancelada!")
+                continuar_alterar = False
+                break
+
             while(True):
                 sair = input("Deseja alterar outro dado de outro produto? (S/N): ").upper()
 
@@ -390,9 +395,10 @@ while(True):
                 else:
                     print("Opção inválida!")
                     continue
+
     elif(opcao == 4):
-        continuar_alterar = True
-        while(continuar_alterar):
+        continuar_removendo = True
+        while(continuar_removendo):
             if(Produtos == []):
                 print("Nenhum produto cadastrado ainda!")
                 break
@@ -402,3 +408,120 @@ while(True):
                 for produto in Produtos:
                     print(f"\nProduto #{numero_produto}\nID: {produto['ID']} | Fornecedor: {produto['Fornecedor']} | Nome do produto: {produto['Nome']} | Descrição: {produto['Descrição']}\nCategoria: {produto['Categoria']} | Preço do produto: {produto['Preço']} | Quantidade: {produto['Quantidade']} | Código do produto: {produto['Codigo do produto']}")
                     numero_produto += 1
+            
+            try:
+                ID_produto = int(input("Informe o ID do produto para removelo: "))
+
+                if(ID_produto < 0):
+                    print("O ID do produto negativo ou inválido!")
+                    continue
+            except(ValueError):
+                print("O ID deve ser em número!")
+                continue
+
+            for product in Produtos:
+                if(product['ID'] == ID_produto):
+                    print(f"O ID do produto encontrado, O nome do produto '{product['Nome']}' e o seu fornecedor '{product['Fornecedor']}'!")
+
+                    while(True):
+                        confirmar = input("Deseja deletar esse produto? (S/N): ").upper()
+
+                        if(confirmar == ""):
+                            print("A opção não digitada ou inválida!")
+                            continue
+
+                        if(confirmar == "S"):
+                            Produtos.remove(product)
+                            Produtos_removidos.append(product)
+                            print(f"O produto {product['Nome']} foi removido com sucesso!")
+                            break
+                        elif(confirmar == "N"):
+                            break
+                        else:
+                            print("Opção inválida, por favor inserir uma opção correta!")
+                            continue
+                    
+                    while(True):
+                        sair = input("Deseja remover outro produto? (S/N): ").upper()
+
+                        if(sair == ""):
+                            print("A opção não digitada ou inválida!")
+                            continue
+
+                        if(sair == "S"):
+                            break
+                        elif(sair == "N"):
+                            print("Voltando pro menu anterior!")
+                            continuar_removendo = False
+                            break
+                        else:
+                            print("Opção inválida, por favor informar uma opção correta!")
+                            continue
+    elif(opcao == 5):
+        continuar_restaurando = True
+        while(continuar_restaurando):
+            if(Produtos_removidos == []):
+                print("Nenhum produto cadastrado ainda!")
+                break
+            else:
+                print("==== Lista de Produtos! ====")
+                numero_produto = 1
+                for produto in Produtos_removidos:
+                    print(f"\nProduto #{numero_produto}\nID: {produto['ID']} | Fornecedor: {produto['Fornecedor']} | Nome do produto: {produto['Nome']} | Descrição: {produto['Descrição']}\nCategoria: {produto['Categoria']} | Preço do produto: {produto['Preço']} | Quantidade: {produto['Quantidade']} | Código do produto: {produto['Codigo do produto']}")
+                    numero_produto += 1
+            
+            try:
+                ID_produto = int(input("Informe o ID do produto para restaura-lo: "))
+
+                if(ID_produto < 0):
+                    print("O ID do produto negativo ou inválido!")
+                    continue
+            except(ValueError):
+                print("O ID deve ser em número!")
+                continue
+
+            for product in Produtos_removidos:
+                if(product['ID'] == ID_produto):
+                    print(f"O ID do produto encontrado, O nome do produto '{product['Nome']}' e o seu fornecedor '{product['Fornecedor']}'!")
+
+                    while(True):
+                        confirmar = input("Deseja restaurar esse produto? (S/N): ").upper()
+
+                        if(confirmar == ""):
+                            print("A opção não digitada ou inválida!")
+                            continue
+
+                        if(confirmar == "S"):
+                            Produtos_removidos.remove(product)
+                            Produtos.append(product)
+                            print(f"O produto {product['Nome']} foi restaurado com sucesso!")
+                            break
+                        elif(confirmar == "N"):
+                            break
+                        else:
+                            print("Opção inválida, por favor inserir uma opção correta!")
+                            continue
+                    
+                    while(True):
+                        sair = input("Deseja restaurar outro produto? (S/N): ").upper()
+
+                        if(sair == ""):
+                            print("A opção não digitada ou inválida!")
+                            continue
+
+                        if(sair == "S"):
+                            break
+                        elif(sair == "N"):
+                            print("Voltando pro menu anterior!")
+                            continuar_restaurando = False
+                            break
+                        else:
+                            print("Opção inválida, por favor informar uma opção correta!")
+                            continue
+    elif(opcao == 6):
+        print("Encerrado o programa, Até mais!")
+        break
+    else:
+        print("Opção inválida! por favor informar uma opção correta!")
+        continue
+
