@@ -1,289 +1,166 @@
 Livros = []
-id_atual = 1
-livros_removidos = []
+Livros_removidos = []
+ID_atual = 1
+import colorama
 
 while(True):
     try:
-        opcao = int(input("Informe uma das opções abaixo:\n1 ==> Cadastrar livros\n2 ==> Listar livros\n3 ==> Alterar dados\n4 ==> Remover livro\n5 ==> Restaurar Livro\n6 ==> Encerrar o programa\n==> "))
-    except ValueError:
-        print("Só pode número!")
+        opcao = int(input(colorama.Style.BRIGHT +"Informe uma das opções abaixo:\n1 ==> Cadastrar livros\n2 ==> Listar livros\n3 ==> Alterar dados\n4 ==> Remover livro\n5 ==> Restaurar Livro\n6 ==> Encerrar o programa\n==> "+ colorama.Style.RESET_ALL))
+
+        if(opcao < 0):
+            print("A opção negativo ou inválido!")
+            continue
+    except(ValueError):
+        print("A opção deve ser numérico!")
         continue
 
     if(opcao == 1):
-        continuar_cadastrar = True
-        while(continuar_cadastrar):
-            nome_autor = input("Informe o nome do autor: ").upper().strip()
+        continuar_cadastrando = True
+        while(continuar_cadastrando):
+            while(True):
+                nome_Autor = input("Informe o nome do autor do livro: ")
 
-            if(nome_autor == ""):
-                print("Nome de autor inválido! Por favor informar o nome do autor correto!")
+                if(nome_Autor == ""):
+                    print(colorama.Fore.YELLOW+ "O nome não digitado ou inválido!"+ colorama.Style.RESET_ALL)
+                    continue
+
+                if(not all(verificar.isalpha() or verificar.isspace() for verificar in nome_Autor)):
+                    print(colorama.Fore.YELLOW+ "O nome deve conter só letras!"+ colorama.Style.RESET_ALL)
+                    continue
+                break
+            while(True):
+                nome_Livro = input("Informe o nome do livro: ")
+
+                if(nome_Livro == ""):
+                    print(colorama.Fore.YELLOW+ "O nome do livro não digitado ou inválido!"+ colorama.Style.RESET_ALL)
+                    continue
+
+                if(not all(verificacao.isalpha() or verificacao.isspace() for verificacao in nome_Livro)):
+                    print(colorama.Fore.YELLOW+ "O nome do livro deve conter só letras!"+ colorama.Style.RESET_ALL)
+                    continue
+                break
+
+            ISBN = input("Informe a ISBN do livro: ").upper()
+
+            if(ISBN == ""):
+                print(colorama.Fore.YELLOW+ "ISBN inválido, Por favor informar a ISBN correto!"+ colorama.Style.RESET_ALL)
                 continue
 
-            nome_livro = input("Informe o nome do livro: ").upper().strip()
+            while(True):
+                try:
+                    quantidade = int(input("Informe a quantidade desse livro: "))
 
-            if(nome_livro == ""):
-                print("O nome do livro inválido! Por favor informar o nome do livro correto!")
-                continue
+                    if(quantidade < 0):
+                        print(colorama.Fore.YELLOW+ "A quantidade de livro negativo ou opção inválido!"+ colorama.Style.RESET_ALL)
+                        continue
+                except(ValueError):
+                    print(colorama.Fore.YELLOW+ "A quantidade deve ser numérico!"+ colorama.Style.RESET_ALL)
+                    continue
+                break
+
+            while(True):
+                deseja_descricao = input("Deseja adicionar alguma descrição do livro? (S/N): ").upper()
+
+                if(deseja_descricao == "S"):
+                    descricao = input("Informe a descrição do livro: ")
+
+                    if(descricao == ""):
+                        print("A descrição não digitada ou inválida!")
+                        continue
+                    break
+                elif(deseja_descricao == "N"):
+                    descricao = "Nenhuma descrição adicionada ainda!"
+                    break
+                else:
+                    print(colorama.Fore.RED+ "Opção inválida, Por favor informar a opção correta!"+ colorama.Style.RESET_ALL)
+                    continue
             
             while(True):
-                try:
-                    quantidade_livro = int(input("Informe a quantidade desse livro: "))
+                Categorias = {1: "Drama", 2: "Romançe", 3: "Comédia", 4: "Distopia", 5: "Ficção", 6: "Terror", 7: "Conto"}
+                try:   
+                    opcao_categoria = int(input("Informe a categoria do livro abaixo:\n1 ==> Drama\n2 ==> Romançe\n3 ==> Comédia\n4 ==> Distopia\n5 ==> Ficção\n6 ==> Terror\n7 ==> Conto\n==> "))
 
-                    if(quantidade_livro < 0):
-                        print("Quantidade inválida! Por favor informar a quantia correta!")
+                    if(opcao_categoria < 1 or opcao_categoria > 7):
+                        print(colorama.Fore.YELLOW+ "Categoria inválida!"+ colorama.Style.RESET_ALL)
                         continue
+                except(ValueError):
+                    print(colorama.Fore.YELLOW+"O numero da categoria deve ser numérico!"+ colorama.Style.RESET_ALL)
+                    continue
+                
+                
+
+                if(Categorias):
+                    Categoria = Categorias.get(opcao_categoria)
+                else:
+                    print(colorama.Fore.YELLOW+ "Categoria inválida!"+ colorama.Style.RESET_ALL)
+                    continue
+                break
+
+            while(True):
+                deseja_cadastrar = input("Deseja cadastrar esse livro? (S/N): ").upper()
+                
+                if(deseja_cadastrar == "S"):
+                    Livro = {"ID": ID_atual, "Autor": nome_Autor, "Livro": nome_Livro, "Categoria": Categoria, "Quantidade": quantidade, "Descrição": descricao, "ISBN": ISBN}
+                    Livros.append(Livro)
+                    print(f"O livro {nome_Livro} foi cadastrado com sucesso!")
+                    ID_atual += 1
                     break
-                except ValueError:
-                    print("O número de quantidades tem que ser em número!")
+                elif(deseja_cadastrar == "N"):
+                    print("O livro não foi cadastrado!")
+                    break
+                else:
+                    print(colorama.Fore.RED+ "Opção inválida, por favor informar a opção correta!"+ colorama.Style.RESET_ALL)
+                    continue
+            
+            while(True):
+                sair = input("Deseja cadastrar outro livro? (S/N): ").upper()
+
+                if(sair == ""):
+                    print("A opção não digitada ou inválida!")
                     continue
 
-            while(True):
-                confirmar = input("Deseja cadastrar esses dados? (S/N): ").upper().strip()
-
-                if(confirmar == "S"):
-                    Livro = {"ID": id_atual, "Autor": nome_autor, "Livro": nome_livro, "Quantidade": quantidade_livro}
-                    Livros.append(Livro)
-                    id_atual += 1
-                    print("O livro foi adicionado com sucesso!")
+                if(sair == "S"):
                     break
-                elif(confirmar == "N"):
-                        print(f"O livro não foi adicionado!")
-                        break
+                elif(sair == "N"):
+                    print("Voltando pro menu anterior!")
+                    continuar_cadastrando = False
+                    break
                 else:
-                    print("Opção inválido!")
-
-            while(True):
-                cadastrar_outro = input("Deseja cadastrar outro livro? (S/N): ").upper().strip()
-
-                if(cadastrar_outro in ["S", "N"]):
-                    if(cadastrar_outro == "N"):
-                        print("Voltando pro menu anterior!")
-                        continuar_cadastrar = False
-                        break
-                    elif(cadastrar_outro == "S"):
-                        break
-                else:
-                    print("Opção inválida!")
+                    print(colorama.Fore.RED+ "Opção inválida, digite a opção correta!"+ colorama.Style.RESET_ALL)
+                    continue
     elif(opcao == 2):
         if(Livros == []):
-            print("nenhum livro foi adicionado!")
+            print(colorama.Fore.RED + "Nenhum livro foi adicionado ainda!"+ colorama.Style.RESET_ALL)
         else:
-            print("Lista dos livros cadastrados!")
+            print("="*80,)
+            print(colorama.Fore.CYAN +("Lista de Livros Cadastrados".center(80))+ colorama.Style.RESET_ALL)
+            numero_livro = 1
             for livro in Livros:
-                print(f"ID: {livro['ID']} || Nome do livro: {livro['Autor']} || Nome do livro: {livro['Livro']} || Quantidade desse livro: {livro['Quantidade']}")
-            print(f"Quantidade de livros: {len(Livros)}")
+                print(f"\n"+colorama.Fore.GREEN+f"Livro #{numero_livro}"+colorama.Style.RESET_ALL+f"\n\nID do Livro: {livro['ID']}\nNome do Autor: {livro['Autor']}\nNome do livro: {livro['Livro']}\nCategoria: {livro['Categoria']}\nQuantidade: {livro['Quantidade']}\n\nDescrição: {livro['Descrição']}\nISBN: {livro['ISBN']}")
+                print("/"*48)
+                numero_livro += 1
+            print("="*80)
     elif(opcao == 3):
-        continuar_alteracao = True
-        while(continuar_alteracao):
+        continuar_alterando = True
+        while(continuar_alterando):
             if(Livros == []):
-                print("nenhum livro foi adicionado!")
+                print(colorama.Fore.RED + "Nenhum livro foi adicionado ainda!"+ colorama.Style.RESET_ALL)
                 break
             else:
-                print("Lista dos livros cadastrados!")
+                print("="*80,)
+                print(colorama.Fore.CYAN +("Lista de Livros Cadastrados".center(80))+ colorama.Style.RESET_ALL)
+                numero_livro = 1
                 for livro in Livros:
-                    print(f"ID: {livro['ID']} || Nome do livro: {livro['Autor']} || Nome do livro: {livro['Livro']} || Quantidade desse livro: {livro['Quantidade']}")
-                print(f"Quantidade de livros: {len(Livros)}")
+                    print(f"\n"+colorama.Fore.GREEN+f"Livro #{numero_livro}"+colorama.Style.RESET_ALL+f"\n\nID do Livro: {livro['ID']}\nNome do Autor: {livro['Autor']}\nNome do livro: {livro['Livro']}\nCategoria: {livro['Categoria']}\nQuantidade: {livro['Quantidade']}\n\nDescrição: {livro['Descrição']}\nISBN: {livro['ISBN']}")
+                    print("/"*48)
+                    numero_livro += 1
+                print("="*80+"\n")
+            
+            try:
+                ID_livro = int(input("Informe o ID do livro: "))
 
-                try:
-                    id_livro = int(input("Informe o id do livro para alterar: "))
-
-                    if(id_livro < 0):
-                        print("Id inválido! Por favor informar o id válido!")
-                        continue
-                except ValueError:
-                    print("ID inválido!")
+                if(ID_livro < 0):
+                    print(colorama.Fore.YELLOW+ "O ID do livro negativo ou inválido!" +colorama.Style.RESET_ALL)
                     continue
-
-            for alterar in Livros:
-                if(alterar['ID'] == id_livro):
-                    print("\nID encontrado!\n")
-                    try:
-                        opcao_alterar = int(input("Informe a opção pra alterar o livro:\n1 ==> Alterar o nome do autor\n2 ==> Alterar o nome do livro\n3 ==> Alterar a quantidade\n==> "))
-                    except ValueError:
-                        print("A opção tem que ser em número!")
-                        continue
-
-                    if(opcao_alterar == 1):
-                        nome_antigo = alterar['Autor']
-
-                        nome_novo = input("Informe o novo nome do autor: ").upper()
-
-                        if(nome_novo == ""):
-                            print("Nome de autor incorreto!")
-                            continue
-
-                        confirmar = input("Deseja alterar esse dado? (S/N): ").upper()
-
-                        if(confirmar == "N"):
-                            print("Alteração de dado cancelado!")
-                            break
-                        elif(confirmar == "S"):
-                            alterar['Autor'] = nome_novo
-                            
-                            print(f"O nome do autor {nome_antigo} foi alterado para {alterar['Autor']}")
-                    elif(opcao_alterar == 2):
-                        nome_livro_antigo = alterar['Livro']
-
-                        novo_nome_livro = input("Informe o novo nome do livro: ").upper()
-
-                        if(novo_nome_livro == ""):
-                            print("Nome de livro inválido!")
-                            continue
-
-                        confirmar = input("Deseja alterar esse dado? (S/N): ").upper()
-
-                        if(confirmar == "N"):
-                            print("Alteração de dado cancelado!")
-                            break
-                        elif(confirmar == "S"):
-                            alterar['Livro'] = novo_nome_livro
-                            
-                            print(f"O nome do livro {nome_livro_antigo} foi alterado para {novo_nome_livro}")
-                    elif(opcao_alterar == 3):
-                        quantidade_antiga = alterar['Quantidade']
-                        try:
-                            nova_quantidade = int(input("Informe a nova quantidade de livros: "))
-
-                            if(nova_quantidade < 0):
-                                print("Quantidade inválida! Por favor informar a quantidade correta!")
-                                continue
-                        except ValueError:
-                            print("A quantidade tem que ser em número!")
-                            continue
-
-                        confirmar = input("Deseja alterar esse dado? (S/N): ").upper()
-
-                        if(confirmar == "N"):
-                            print("Alteração de dado cancelado!")
-                            break
-                        elif(confirmar == "S"):
-                            alterar['Quantidade'] = nova_quantidade
-                            
-                            print(f"A quantidade antiga de livros '{quantidade_antiga}', foi alterada para '{nova_quantidade}'")
-                    else:
-                        print("Opção inválida! Por favor informar a opção correta!")
-                        continue
-                    while(True):
-                        sair_programa = input("Deseja alterar outro livro? (S/N): ").upper()
-
-                        if(sair_programa == "N"):
-                            print("Voltando pro menu anterior!")
-                            continuar_alteracao = False
-                            break
-                        elif(sair_programa == "S"):
-                            break
-                        else:
-                            print("Opção inválida! Por favor informar a opção correta!")
-                else:
-                    print("ID não encontrado!")
-                    continue
-    elif(opcao == 4):
-        continuar_remocao = True
-        while(continuar_remocao):
-            if(Livros == []):
-                print("nenhum livro foi adicionado!")
-                break
-            else:
-                print("Lista dos livros cadastrados!")
-                for livro in Livros:
-                    print(f"ID: {livro['ID']} || Nome do livro: {livro['Autor']} || Nome do livro: {livro['Livro']} || Quantidade desse livro: {livro['Quantidade']}")
-                print(f"Quantidade de livros: {len(Livros)}")
-                try:
-                    id_remocao = int(input("Informe o ID do livro a ser removido: "))
-
-                    if(id_remocao <= 0 ):
-                        print("ID inválido! Por favor informar o ID correto!")
-                        
-                except ValueError:
-                    print("O ID tem que ser em número!")
-                    continue
-
-            id_encontrado = False
-
-            for remocao in Livros:
-                if(remocao['ID'] == id_remocao):
-                    id_encontrado = True
-                    print("ID encontrado!")
-                    while(True):
-                        confirmar = input("Deseja remover esse livro? (S/N): ").upper()
-
-                        if(confirmar == "S"):
-                            print(f"O livro {remocao['Livro']} foi removido com sucesso!")
-                            Livros.remove(remocao)
-                            livros_removidos.append(remocao)
-                            break
-                        elif(confirmar == "N"):
-                            print("Remoção cancelada!")
-                            break
-                        else:
-                            print("Opção inválida!")
-                
-                    while(True):
-                        sair_programa = input("Deseja remover outro livro? (S/N): ").upper()
-
-                        if(sair_programa == "N"):
-                            continuar_remocao = False
-                            break
-                        elif(sair_programa == "S"):
-                            break
-                        else:
-                            print("Opção inválida! Por favor informar a opção correta!")
-                    break
-
-            if not id_encontrado:
-                print("ID Inválido!")
-    elif(opcao == 5):
-        continuar_restaurar = True
-        while(continuar_restaurar):
-            if(livros_removidos == []):
-                print("nenhum livro foi removido!")
-                break
-            else:
-                print("Lista dos livros removidos!")
-                for livro in livros_removidos:
-                    print(f"ID: {livro['ID']} || Nome do livro: {livro['Autor']} || Nome do livro: {livro['Livro']} || Quantidade desse livro: {livro['Quantidade']}")
-                print(f"Quantidade de livros removidos: {len(livros_removidos)}")
-                try:
-                    id_restaurar = int(input("Informe o ID do livro para restaurar: "))
-
-                    if(id_restaurar <= 0):
-                        print("ID inválido!")
-                        continue
-                except ValueError:
-                    print("O ID tem que ser em número!")
-                    continue
-
-            id_encontrado = False
-
-            for restaurar in livros_removidos:
-                if(restaurar['ID'] == id_restaurar):
-                    print("ID encontrado!")
-                    while(True):
-                        confirmar = input("Deseja restaurar esse livro? (S/N): ").upper()
-
-                        if(confirmar == "S"):
-                            print(f"O livro {restaurar['Livro']} foi restaurado com sucesso!")
-                            livros_removidos.remove(restaurar)
-                            Livros.append(restaurar)
-                            break
-                        elif(confirmar == "N"):
-                            print("Restauração cancelado!")
-                            break
-                        else:
-                            print("Opção inválida!")
-                        
-                    while(True):
-                        sair = input("Deseja restaurar outro livro? (S/N): ").upper()
-
-                        if(sair == "S"):
-                            break
-                        elif(sair == "N"):
-                            continuar_restaurar = False
-                            break
-                        else:
-                            print("Opção inválida!")
-                    break
-            if not id_encontrado:
-                print("ID inválido!")
-    elif(opcao == 6):
-        print("Programa encerrado, até mais!")
-        break
+            except(ValueError):
+                print(colorama.Fore.YELLOW+ "O ID deve ser numérico!"+ colorama.Style.RESET_ALL)
