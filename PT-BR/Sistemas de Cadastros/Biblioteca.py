@@ -130,29 +130,29 @@ while(True):
         if(Livros == []):
             print(colorama.Fore.RED + "Nenhum livro foi adicionado ainda!"+ colorama.Style.RESET_ALL)
         else:
-            print("="*80,)
+            print("="*80 +"\n"+"/"*80)
             print(colorama.Fore.CYAN +("Lista de Livros Cadastrados".center(80))+ colorama.Style.RESET_ALL)
             numero_livro = 1
             for livro in Livros:
-                print(f"\n"+colorama.Fore.GREEN+f"Livro #{numero_livro}"+colorama.Style.RESET_ALL+f"\n\nID do Livro: {livro['ID']}\nNome do Autor: {livro['Autor']}\nNome do livro: {livro['Livro']}\nCategoria: {livro['Categoria']}\nQuantidade: {livro['Quantidade']}\n\nDescrição: {livro['Descrição']}\nISBN: {livro['ISBN']}")
-                print("/"*48)
+                print("\n"+colorama.Fore.GREEN+f"Livro #{numero_livro}"+colorama.Style.RESET_ALL+f"\n\nID do Livro: {livro['ID']}\nNome do Autor: {livro['Autor']}\nNome do livro: {livro['Livro']}\nCategoria: {livro['Categoria']}\nQuantidade: {livro['Quantidade']}\n\nDescrição: {livro['Descrição']}\nISBN: {livro['ISBN']}")
+                print("=" * 80)
+                print("|" * 80)
+                print("=" * 80)
                 numero_livro += 1
-            print("="*80)
+            print("\\"*80+"\n"+"="*80)
     elif(opcao == 3):
         continuar_alterando = True
         while(continuar_alterando):
             if(Livros == []):
                 print(colorama.Fore.RED + "Nenhum livro foi adicionado ainda!"+ colorama.Style.RESET_ALL)
-                break
             else:
-                print("="*80,)
+                print("="*80 +"\n"+"/"*80)
                 print(colorama.Fore.CYAN +("Lista de Livros Cadastrados".center(80))+ colorama.Style.RESET_ALL)
                 numero_livro = 1
-                for livro in Livros:
-                    print(f"\n"+colorama.Fore.GREEN+f"Livro #{numero_livro}"+colorama.Style.RESET_ALL+f"\n\nID do Livro: {livro['ID']}\nNome do Autor: {livro['Autor']}\nNome do livro: {livro['Livro']}\nCategoria: {livro['Categoria']}\nQuantidade: {livro['Quantidade']}\n\nDescrição: {livro['Descrição']}\nISBN: {livro['ISBN']}")
-                    print("/"*48)
-                    numero_livro += 1
-                print("="*80+"\n")
+            for livro in Livros:
+                print("\n"+"|"*80 +"\n\n"+colorama.Fore.GREEN+f"Livro #{numero_livro}"+colorama.Style.RESET_ALL+f"\n\nID do Livro: {livro['ID']}\nNome do Autor: {livro['Autor']}\nNome do livro: {livro['Livro']}\nCategoria: {livro['Categoria']}\nQuantidade: {livro['Quantidade']}\n\nDescrição: {livro['Descrição']}\nISBN: {livro['ISBN']}")
+                numero_livro += 1
+            print("\\"*80+"\n"+"="*80)
             
             try:
                 ID_livro = int(input("Informe o ID do livro: "))
@@ -372,16 +372,14 @@ while(True):
         while(continuar_removendo):
             if(Livros == []):
                 print(colorama.Fore.RED + "Nenhum livro foi adicionado ainda!"+ colorama.Style.RESET_ALL)
-                break
             else:
-                print("="*80,)
+                print("="*80 +"\n"+"/"*80)
                 print(colorama.Fore.CYAN +("Lista de Livros Cadastrados".center(80))+ colorama.Style.RESET_ALL)
                 numero_livro = 1
-                for livro in Livros:
-                    print(f"\n"+colorama.Fore.GREEN+f"Livro #{numero_livro}"+colorama.Style.RESET_ALL+f"\n\nID do Livro: {livro['ID']}\nNome do Autor: {livro['Autor']}\nNome do livro: {livro['Livro']}\nCategoria: {livro['Categoria']}\nQuantidade: {livro['Quantidade']}\n\nDescrição: {livro['Descrição']}\nISBN: {livro['ISBN']}")
-                    print("/"*48)
-                    numero_livro += 1
-                print("="*80+"\n")
+            for livro in Livros:
+                print("\n"+"|"*80 +"\n\n"+colorama.Fore.GREEN+f"Livro #{numero_livro}"+colorama.Style.RESET_ALL+f"\n\nID do Livro: {livro['ID']}\nNome do Autor: {livro['Autor']}\nNome do livro: {livro['Livro']}\nCategoria: {livro['Categoria']}\nQuantidade: {livro['Quantidade']}\n\nDescrição: {livro['Descrição']}\nISBN: {livro['ISBN']}")
+                numero_livro += 1
+            print("\\"*80+"\n"+"="*80)
             
             try:
                 ID_livro = int(input("Informe o ID do livro a ser removido: "))
@@ -435,17 +433,15 @@ while(True):
         continuar_restaurar = True
         while(continuar_restaurar):
             if(Livros_removidos == []):
-                print(colorama.Fore.RED + "Nenhum livro removido ainda!"+ colorama.Style.RESET_ALL)
-                break
+                print(colorama.Fore.RED + "Nenhum livro foi adicionado ainda!"+ colorama.Style.RESET_ALL)
             else:
-                print("="*80,)
-                print(colorama.Fore.CYAN +("Lista de Livros removidos".center(80))+ colorama.Style.RESET_ALL)
+                print("="*80 +"\n"+"/"*80)
+                print(colorama.Fore.CYAN +("Lista de Livros Removidos".center(80))+ colorama.Style.RESET_ALL)
                 numero_livro = 1
-                for livro in Livros_removidos:
-                    print(f"\n"+colorama.Fore.GREEN+f"Livro #{numero_livro}"+colorama.Style.RESET_ALL+f"\n\nID do Livro: {livro['ID']}\nNome do Autor: {livro['Autor']}\nNome do livro: {livro['Livro']}\nCategoria: {livro['Categoria']}\nQuantidade: {livro['Quantidade']}\n\nDescrição: {livro['Descrição']}\nISBN: {livro['ISBN']}")
-                    print("/"*48)
-                    numero_livro += 1
-                print("="*80+"\n")
+            for livro in Livros_removidos:
+                print("\n"+"|"*80 +"\n\n"+colorama.Fore.GREEN+f"Livro #{numero_livro}"+colorama.Style.RESET_ALL+f"\n\nID do Livro: {livro['ID']}\nNome do Autor: {livro['Autor']}\nNome do livro: {livro['Livro']}\nCategoria: {livro['Categoria']}\nQuantidade: {livro['Quantidade']}\n\nDescrição: {livro['Descrição']}\nISBN: {livro['ISBN']}")
+                numero_livro += 1
+            print("\\"*80+"\n"+"="*80)
             
             try:
                 ID_livro = int(input("Informe o ID do livro a ser restaurado: "))
