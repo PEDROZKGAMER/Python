@@ -164,3 +164,44 @@ while(True):
                     continue
             except(ValueError):
                 print(colorama.Fore.YELLOW+ "O ID deve ser numérico!"+ colorama.Style.RESET_ALL)
+
+            for alterar in Livros:
+                if(alterar['ID'] == ID_livro):
+                    print(colorama.Fore.GREEN+f"ID encontrado, Nome do livro: {alterar['Livro']} "+ colorama.Style.RESET_ALL)
+
+                    while(True):
+                        try:
+                            opcao_alterar = int(input("Informe a opção abaixo:\n1 ==> Alterar o nome do autor\n2 ==> Alterar o nome do livro\n3 ==> Alterar A ISBN do livro\n4 ==> Alterar a quantidade do livro\n5 ==> Alterar a descrição\n6 ==> Alterar a categoria\n7 ==> Cancelar a alteração\n==> "))
+
+                            if(opcao_alterar < 1 or opcao_alterar > 7):
+                                print(colorama.Fore.YELLOW+ "A opção negativa ou inválida!" +colorama.Style.RESET_ALL)
+                                continue
+                        except(ValueError):
+                            print(colorama.Fore.YELLOW+"A opção deve ser numérica!"+colorama.Style.RESET_ALL)
+                            continue
+
+                        if(opcao_alterar == 1):
+                            alteracao_autor = True
+                            autor_antigo = alterar['Autor']
+                            while(alteracao_autor):
+                                novo_autor = input("Digite o novo nome do autor: ")
+
+                                if(novo_autor == "" or not all(verificar_novo_autor.isalpha() or verificar_novo_autor.isspace() for verificar_novo_autor in novo_autor)):
+                                    print(colorama.Fore.YELLOW+ "O nome do autor deve conter só letras ou não digitado inválido!"+ colorama.Style.RESET_ALL)
+                                    continue
+
+                                while(True):
+                                    confirmar = input("Deseja mesmo alterar o nome do autor? (S/N): ")
+
+                                    if(confirmar == "S"):
+                                        alterar['Autor'] = novo_autor
+                                        print(colorama.Fore.GREEN+f"O nome do autor do autor '{autor_antigo}' foi alterado para '{alterar['Autor']}'"+ colorama.Style.RESET_ALL)
+                                        alteracao_autor = False
+                                        break
+                                    elif(confirmar == "N"):
+                                        print(colorama.Fore.RED+"Alteração cancelada!"+colorama.Style.RESET_ALL)
+                                        alteracao_autor = False
+                                        break
+                                    else:
+                                        print(colorama.Fore.YELLOW+"Opção Inválida, por favor informar a opção correta!"+colorama.Style.RESET_ALL)
+                                        continue
