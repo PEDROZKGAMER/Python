@@ -1,4 +1,5 @@
 import math
+import colorama
 
 opcao = int(input("Informe a opcao abaixo:\n1 ==> 'Calculadora normal'\n2 ==> 'Raiz quadrada'\n==> "))
 
@@ -15,7 +16,7 @@ if(opcao == 1):
             break
 
         if(operador != "+" and operador != "-" and operador != "*" and operador != "/"):
-            print("Erro, operador inválido!!")
+            print(colorama.Fore.YELLOW+"Erro, operador inválido!!"+colorama.Style.RESET_ALL)
             continue
 
         numero = float(input("Informe um numero: "))
