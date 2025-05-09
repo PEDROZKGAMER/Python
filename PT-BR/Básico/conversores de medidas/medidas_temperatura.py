@@ -19,17 +19,17 @@ formula_celsius_K = valor - 273.15
 formula_fahrenheit_K = (valor - 273.15) * 9/5 + 32
 
 #Celsius
-if selecionar_tempe == celsius and selecionar_t_prox == Kelvin:
+if (selecionar_tempe == celsius and selecionar_t_prox == Kelvin):
     print(f"{formula_kelvin_C}")
-elif selecionar_tempe == celsius and selecionar_t_prox == fahren:
+elif (selecionar_tempe == celsius and selecionar_t_prox == fahren):
     print(f"{formula_fahrenheit_C}")
 #Fahren
-elif selecionar_tempe == fahren and selecionar_t_prox == celsius:
+elif (selecionar_tempe == fahren and selecionar_t_prox == celsius):
     print(f"{formula_celsius_F}")
-elif selecionar_tempe == fahren and selecionar_t_prox == Kelvin:
+elif (selecionar_tempe == fahren and selecionar_t_prox == Kelvin):
     print(f"{formula_kelvin_F}")
 #Kelvin
-elif selecionar_tempe == Kelvin and selecionar_t_prox == celsius:
+elif (selecionar_tempe == Kelvin and selecionar_t_prox == celsius):
     print(f"{formula_celsius_K}")
-elif selecionar_tempe == Kelvin and selecionar_t_prox == fahren:
+elif (selecionar_tempe == Kelvin and selecionar_t_prox == fahren):
     print(f"{formula_fahrenheit_K}")

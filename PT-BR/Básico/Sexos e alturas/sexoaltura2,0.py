@@ -12,6 +12,9 @@ while True:
             print("Comando encerrado!!")
             break
 
+        if(sexo.isalpha()):
+            print("Só pode letras!")
+
         if sexo == "M":
             masculino += 1
             sexos.append(sexo)
@@ -30,10 +33,10 @@ while True:
                     alturas.append(altura)
                     soma_altura += altura
                     break
-            except ValueError:
+            except(ValueError):
                 print("Erro, insira um número válido para altura.")
 
-    except ValueError:
+    except(ValueError):
         print("Erro, entrada inválida!!")
 
 soma_sexo = masculino + feminino
